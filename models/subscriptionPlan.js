@@ -7,10 +7,6 @@ const SubscriptionPlan = new Schema({
 		type: String,
 		required: true,
 	},
-	type: {
-		type: String,
-		required: true,
-	},
 	price: {
 		type: String,
 		required: true,
@@ -20,6 +16,14 @@ const SubscriptionPlan = new Schema({
 		required: true,
 	},
 	duration: {
+		type: String,
+		required: true,
+	},
+	imageDownloadSize: {
+		type: String,
+		required: true,
+	},
+	imageSearches: {
 		type: String,
 		required: true,
 	},

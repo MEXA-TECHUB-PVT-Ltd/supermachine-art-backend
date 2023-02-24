@@ -6,6 +6,7 @@ const member_Sign_up = async (req, res) => {
         const { name, gender, phone, email, password } = req.body;
         const type = 'visitor';
         const status = 'unBlock';
+        console.log(req.body);
         if (!name) {
             res.status(400).send("name is required");
         }
@@ -24,7 +25,6 @@ const member_Sign_up = async (req, res) => {
         }
         const exist = await User.findOne({ email });
         if (exist) {
-            console.log(`exists`);
             res.status(200).send("Email is already taken");
         }
         const user = await new User({ name, gender, phone, email, password, type, status });

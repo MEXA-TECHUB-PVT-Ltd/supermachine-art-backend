@@ -2,7 +2,7 @@ const Plan = require("../../models/subscriptionPlan");
 
 const AddSubscriptionPlan = async (req, res) => {
     try {
-        const { name, type, price, feature } = req.body;
+        const { name, type, price, feature, duration , imageDownloadSize,imageSearches} = req.body;
         console.log(req.body);
         if (!price) {
             res.status(400).send("Price is required");
@@ -13,7 +13,7 @@ const AddSubscriptionPlan = async (req, res) => {
         //     res.status(200).send("Email is already taken");
         // }
         else {
-            const plan = await new Plan({ name, type, price, feature });
+            const plan = await new Plan({ name, price, feature, duration,imageDownloadSize,imageSearches });
             plan.save();
             await res.json({
                 message: "Subscription Plan Added Successfully!",
