@@ -33,5 +33,6 @@ const User = new Schema({
 		required: true,
 		enum: ['unBlock', 'blocked']
 	},
+
 });
 module.exports = mongoose.model("User", User);

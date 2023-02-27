@@ -2,13 +2,13 @@ const Plan = require("../../models/subscriptionPlan");
 
 const UpdateSubscriptionPlan = async (req, res) => {
     try {
-        const { _id, name, type, price, feature } = req.body;
+        const { _id, price,imageDownloadSize,imageSearches } = req.body;
+        console.log(req.body.imageSearches);
         const result = await Plan.findOneAndUpdate({ _id: _id },
             {
-                name: name,
-                type: type,
                 price: price,
-                feature: feature
+                imageDownloadSize: imageDownloadSize,
+                imageSearches: imageSearches,
             },
             {
                 new: true
@@ -21,7 +21,7 @@ const UpdateSubscriptionPlan = async (req, res) => {
             });
         } else {
             res.json({
-                message: "Plan updated Successfully",
+                message: "Plan Updated Successfully!",
                 result,
             });
         }

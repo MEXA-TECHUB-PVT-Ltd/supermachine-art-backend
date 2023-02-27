@@ -7,7 +7,7 @@ const ViewSubscriptionPlan = async (req, res) => {
 		if (!plan) {
 			res.json("No plan found");
 		} else {
-			res.json({ plan });
+			res.json(plan);
 		}
 	} catch (err) {
 		res.json({
