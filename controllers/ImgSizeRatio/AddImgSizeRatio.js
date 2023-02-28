@@ -6,7 +6,7 @@ const AddImgSizeRatio = async (req, res) => {
         if (!imageSize) {
             res.status(400).send("imageSize is required");
         }
-        const result =  new PromoCode({ imageSize });
+        const result =  new ImgSizeRatio({ imageSize });
         result.save();
         await res.json({
             message: "imageSize Added Successfully!",
