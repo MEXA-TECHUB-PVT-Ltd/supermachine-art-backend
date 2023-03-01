@@ -14,19 +14,19 @@ const UpdateLicenseAgreement = async (req, res) => {
         if (!result) {
             res.json({
                 message: "License Agreement not Existeds!",
-                result,
+                status:false,
             });
         } else {
             res.json({
                 message: "License Agreement Updated Successfully!",
+                status:true,
                 result,
             });
         }
     } catch (err) {
         res.json({
             message: "License Agreement Updation Failed!",
-            status: "none",
-            err
+            status: false,
         });
     }
 };

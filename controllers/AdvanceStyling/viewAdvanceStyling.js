@@ -1,19 +1,23 @@
 const AdvanceStyling = require("../../models/AdvanceStyling");
 const ViewAdvanceStyling = async (req, res) => {
 	try {
-		// const {  } = req.body;
 		const result = await AdvanceStyling.find();
 		if (!result) {
-			res.json("No  Style Type  found");
+			res.json({
+				message: "No  Style Type  found",
+				status: false,
+			});	
 		} else {
-			console.log(result);
-			res.json(result);
+			res.json({
+				message: "Style Type fetch Successfully",
+				status: true,
+				result
+			});	
 		}
 	} catch (err) {
 		res.json({
 			message: "Style Type  Fetching Failed",
 			status: false,
-			err
 		});
 	}
 };

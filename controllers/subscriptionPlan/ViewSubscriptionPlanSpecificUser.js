@@ -1,9 +1,15 @@
 const Plan = require("../../models/subscriptionPlan");
 const AvailPlan = require("../../models/usersSubscriptions");
 
-const ViewSubscriptionPlanUser = async (req, res) => {
+const ViewSubscriptionPlanSpecificUser = async (req, res) => {
 	try {
+		const { _id } = req.body;
 		const result = await AvailPlan.aggregate([
+			{
+				$match: {
+					userID: _id
+				}
+			},
 			{
 				$lookup: {
 					from: "subscriptionplans",
@@ -11,14 +17,14 @@ const ViewSubscriptionPlanUser = async (req, res) => {
 					foreignField: '_id',
 					as: "SubscriptionData"
 				}
-
 			}
+
 		]);
 		if (!result) {
 			res.json({
-                message: "No Subscription found",
-                status:false,
-            });
+				message: "No Subscription found",
+				status: false,
+			});
 		} else {
 			// const plan = await Plan.find({});
 			// // console.log(plan);
@@ -32,10 +38,10 @@ const ViewSubscriptionPlanUser = async (req, res) => {
 			// 	}
 			// }
 			res.json({
-                message: "Subscription Data!",
-                status:true,
+				message: "Subscription Data!",
+				status: true,
 				result
-            });
+			});
 		}
 		// if (!plan) {
 		// 	res.json("No plan found");
@@ -47,6 +53,7 @@ const ViewSubscriptionPlanUser = async (req, res) => {
 			message: "error",
 			status: false,
 		});
+		console.log(err);
 	}
 };
-module.exports = ViewSubscriptionPlanUser;
+module.exports = ViewSubscriptionPlanSpecificUser;

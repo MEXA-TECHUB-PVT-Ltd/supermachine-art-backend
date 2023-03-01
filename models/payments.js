@@ -7,6 +7,10 @@ const Payments = new Schema({
 		type: String,
 		required: true,
 	},
+	user_name: {
+		type: String,
+		required: true,
+	},
 	user_email: {
 		type: String,
 		required: true,
@@ -20,15 +24,11 @@ const Payments = new Schema({
 		type: String,
 		required: true,
 	},
-    plan_type:{
+    amount:{
 		type: String,
 		required: true,
 	},
-    plan_price:{
-		type: String,
-		required: true,
-	},
-    paid_price:{
+    description:{
 		type: String,
 		required: true,
 	},

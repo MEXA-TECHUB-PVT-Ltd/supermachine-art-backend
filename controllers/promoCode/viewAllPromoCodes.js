@@ -15,16 +15,21 @@ const ViewAllPromoCode = async (req, res) => {
 		]);
 		// const result = await promoCode.find();
 		if (!result) {
-			res.json("No Promo Code found");
+			res.json({
+				message: "No Promo Code found",
+				status:false,
+			});
 		} else {
-			console.log(result);
-			res.json(result);
+			res.json({
+				message: "Promo Code data!",
+				status:true,
+				result,
+			});
 		}
 	} catch (err) {
 		res.json({
-			message: "Promo Code Fetching Failed",
+			message: "Error",
 			status: false,
-			err
 		});
 	}
 };

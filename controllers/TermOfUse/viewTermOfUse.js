@@ -3,15 +3,21 @@ const ViewTermOfUse = async (req, res) => {
 	try {
 		const result = await TermOfUse.find();
 		if (!result) {
-			res.json("No TermOfUse found");
+			res.json({
+                message: "No TermOfUse found",
+                status:false,
+            });
 		} else {
-			res.json(result);
+			res.json({
+                message: "Term Of Use Data!",
+                status:true,
+                result,
+            });
 		}
 	} catch (err) {
 		res.json({
-			message: "TermOfUse Fetching Failed",
+			message: "Error!",
 			status: false,
-			err
 		});
 	}
 };

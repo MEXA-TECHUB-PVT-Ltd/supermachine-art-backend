@@ -14,19 +14,19 @@ const UpdatePrivacyPolicy = async (req, res) => {
         if (!result) {
             res.json({
                 message: "Privacy Policy not Existeds!",
-                result,
+                status: false,
             });
         } else {
             res.json({
                 message: "Privacy Policy Updated Successfully!",
+                status:true,
                 result,
             });
         }
     } catch (err) {
         res.json({
             message: "Privacy Policy Updation Failed!",
-            status: "none",
-            err
+            status: false,
         });
     }
 };

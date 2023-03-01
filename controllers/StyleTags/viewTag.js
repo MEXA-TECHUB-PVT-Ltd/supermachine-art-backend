@@ -5,16 +5,21 @@ const viewTag = async (req, res) => {
 		console.log(AdvanceStylingID);
 		const result = await Tag.find({AdvanceStylingID:AdvanceStylingID});
 		if (!result) {
-			res.json("No  Img Size found");
+			res.json({
+                message: "No  Img Size found",
+                status:false,
+            });
 		} else {
-			// console.log(result);
-			res.json(result);
+			res.json({
+                message: "Img Size found Successfully!",
+                status:true,
+				result
+            });
 		}
 	} catch (err) {
 		res.json({
-			message: "Img Size Fetching Failed",
+			message: "Error!",
 			status: false,
-			err
 		});
 	}
 };

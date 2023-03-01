@@ -3,7 +3,10 @@ const DeleteAdvanceStyling = async (req, res) => {
 	try {
 		const result = await AdvanceStyling.findOneAndDelete({_id:req.params.id});
 		if (!result) {
-			res.json("No Advance Styling Type found");
+			res.json({
+				message: "No Advance Styling Type found",
+				status: false,
+			});
 		} else {
 			res.json({
 				message: "Advance Style Delected Successfully",
@@ -14,8 +17,7 @@ const DeleteAdvanceStyling = async (req, res) => {
 	} catch (err) {
 		res.json({
 			message: "error",
-			status: "none",
-			err
+			status: "false",
 		});
 	}
 };

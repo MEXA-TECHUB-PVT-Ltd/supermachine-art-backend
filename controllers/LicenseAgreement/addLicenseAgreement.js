@@ -4,22 +4,29 @@ const AddLicenseAgreement = async (req, res) => {
     try {
         const { title, content } = req.body;
         if (!title) {
-            res.status(400).send("title is required");
+            res.json({
+                message: "title is required",
+                status: false,
+            });
         }
-        if (!content) {
-            res.status(400).send("content is required");
+        else if (!content) {
+            res.json({
+                message: "content is required",
+                status: false,
+            });
+        } else {
+            const result = await new LicenseAgreement({ title, content });
+            result.save();
+            await res.json({
+                message: "License Agreement Added Successfully!",
+                status:true,
+                result,
+            });
         }
-        const result = await new LicenseAgreement({ title, content });
-        result.save();
-        await res.json({
-            message: "License Agreement Added Successfully!",
-            result,
-        });
     } catch (err) {
         res.json({
             message: "License Agreement Addition failed!",
-            status: "none",
-            err
+            status: false,
         });
         console.log(err)
     }

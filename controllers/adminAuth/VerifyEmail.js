@@ -19,8 +19,6 @@ const sendOTPVerificationEmail = async ({ _id, email }, res) => {
     try {
         const otp = `${Math.floor(1000 + Math.random() * 9000)}`
         const result = await userOTPVerificationModel.findOne({ email: email })
-        console.log(result)
-
         if (!result) {
             const newOTPVerif = new userOTPVerificationModel({
                 userId: _id,

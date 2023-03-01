@@ -13,19 +13,19 @@ const UpdateStyleTags = async (req, res) => {
         if (!result) {
             res.json({
                 message: "Style Tag not Existeds!",
-                result,
+                status: false,
             });
         } else {
             res.json({
                 message: "Style Tag Updated Successfully!",
+                status: true,
                 result,
             });
         }
     } catch (err) {
         res.json({
-            message: "Style Tag Updation Failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status: False,
         });
     }
 };

@@ -3,7 +3,6 @@ const Plan = require("../../models/subscriptionPlan");
 const UpdateSubscriptionPlan = async (req, res) => {
     try {
         const { _id, price,imageDownloadSize,imageSearches } = req.body;
-        console.log(req.body.imageSearches);
         const result = await Plan.findOneAndUpdate({ _id: _id },
             {
                 price: price,
@@ -13,23 +12,23 @@ const UpdateSubscriptionPlan = async (req, res) => {
             {
                 new: true
             })
-        console.log(`result is : ${result}`);
         if (!result) {
             res.json({
                 message: "Plan not Existeds!",
+                status:false,
                 result,
             });
         } else {
             res.json({
                 message: "Plan Updated Successfully!",
+                status:true,
                 result,
             });
         }
     } catch (err) {
         res.json({
-            message: "Plan Updation Failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status:false,
         });
     }
 };

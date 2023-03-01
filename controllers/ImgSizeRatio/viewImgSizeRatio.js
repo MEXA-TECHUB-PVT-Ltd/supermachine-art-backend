@@ -4,16 +4,21 @@ const ViewImgSize = async (req, res) => {
 		// const {  } = req.body;
 		const result = await ImgSize.find();
 		if (!result) {
-			res.json("No  Img Size found");
+			res.json({
+				message: "No  Img Size found",
+				status: false,
+			});
 		} else {
-			console.log(result);
-			res.json(result);
+			res.json({
+				message: "Img Size found",
+				status: true,
+				result
+			});
 		}
 	} catch (err) {
 		res.json({
 			message: "Img Size Fetching Failed",
 			status: false,
-			err
 		});
 	}
 };

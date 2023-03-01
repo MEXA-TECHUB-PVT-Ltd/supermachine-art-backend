@@ -27,6 +27,7 @@ const newPassword = async (req, res) => {
             if (results.deletedCount > 0) {
                 res.json({
                     message: "Password has been updated",
+                    status:true,
                     result: result
                 })
             }
@@ -37,6 +38,7 @@ const newPassword = async (req, res) => {
         else {
             res.json({
                 message: "Password could not be updated successfully",
+                status:true,
                 result: result
             })
         }

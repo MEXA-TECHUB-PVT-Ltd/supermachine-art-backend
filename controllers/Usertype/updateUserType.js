@@ -13,19 +13,19 @@ const UpdateUserType = async (req, res) => {
         if (!result) {
             res.json({
                 message: "type not Existeds!",
-                result,
+                status:false,
             });
         } else {
             res.json({
                 message: "type  Updated Successfully!",
+                status:true,
                 result,
             });
         }
     } catch (err) {
         res.json({
-            message: "type Updation Failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status: false,
         });
     }
 };

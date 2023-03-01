@@ -3,6 +3,7 @@ const ViewAllUsers = require("../controllers/ManageUser/ViewAllUsers");
 const ChangeStatus = require("../controllers/ManageUser/ChangeStatus");
 const ViewAllBlockedUsers = require("../controllers/ManageUser/ViewAllBlockedUsers");
 const ViewAllSubscribedUser = require("../controllers/ManageUser/ViewAllSubscribedUser");
+const DeleteUser = require("../controllers/ManageUser/DeleteUser");
 
 // const upload = require("../middlewares/userPicsMulter")
 
@@ -12,5 +13,6 @@ router.get("/view_all_users", ViewAllUsers);
 router.post("/change_status", ChangeStatus);
 router.get("/view_all_blocked_users", ViewAllBlockedUsers);
 router.get("/view_all_subscribed_users", ViewAllSubscribedUser);
+router.delete("/delete_user/:id", DeleteUser);
 
 module.exports = router;

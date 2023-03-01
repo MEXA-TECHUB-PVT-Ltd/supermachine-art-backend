@@ -13,25 +13,22 @@ const updateMember_Profile = async (req, res) => {
             {
                 new: true
             })
-        console.log(`result is : ${result}`);
         if (!result) {
             res.json({
                 message: "Profile Not Updated!",
-                result: result,
-                statusCode: 201
+                status:false,
             });
         } else {
             res.json({
                 message: "Member Profile updated",
+                status: true,
                 result: result,
-                statusCode: 201,
             });
         }
     } catch (err) {
         res.json({
             message: "error",
-            status: "none",
-            err
+            status: false,
         });
     }
 };

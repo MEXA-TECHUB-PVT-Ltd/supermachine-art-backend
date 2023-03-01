@@ -16,28 +16,21 @@ const availSubscription = async (req, res) => {
         if (!result) {
             res.json({
                 message: "Subscription Failed",
-                result,
-            });
+                status:false,
+s            });
         } else {
             plan.save();
             res.json({
                 message: "Subscribed Successfully!",
+                status:true,
                 plan,
             });
         }
-
-
-        await res.json({
-            message: "User Get Subscription Successfully!",
-            plan,
-        });
     } catch (err) {
         res.json({
-            message: "Subscription  getting failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status: false,
         });
-        console.log(err)
     }
 };
 module.exports = availSubscription;

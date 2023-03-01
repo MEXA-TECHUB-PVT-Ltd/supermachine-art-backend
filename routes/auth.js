@@ -7,7 +7,6 @@ const AdminVerifyOTP  = require("../controllers/adminAuth/verifyOTP");
 const AdminNewPassword = require("../controllers/adminAuth/newPassword");
 
 
-const sign_in_User = require("../controllers/auth/sign_in/sign_in_User");
 const sign_in_All = require("../controllers/auth/sign_in/sign_in _All");
 const member_Sign_up = require("../controllers/auth/member_Sign_up");
 const passwordReset = require("../controllers/auth/passwordReset");
@@ -27,7 +26,6 @@ router.post("/admin_verify_otp" , AdminVerifyOTP)
 router.post("/admin_new_password" , AdminNewPassword)
 
 
-router.post("/sign_in_User", sign_in_User);
 router.post("/sign_in_All", sign_in_All);
 router.post("/member_sign_up" ,member_Sign_up);
 router.put("/resetPassword", passwordReset);
