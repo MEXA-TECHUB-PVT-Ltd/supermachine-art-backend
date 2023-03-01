@@ -37,6 +37,10 @@ app.use("/promo_code/", require("./routes/promoCode"));
 app.use("/term_of_use/", require("./routes/TermOfUse"));
 app.use("/privacy_policy/", require("./routes/privacyPolicy"));
 app.use("/image_size/", require("./routes/ImgRatioSize"));
+app.use("/user_type/", require("./routes/UserType"));
+app.use("/advance_styling/", require("./routes/AdvanceStyling"));
+app.use("/style_tags/", require("./routes/StyleTags"));
+app.use("/license_agreement/", require("./routes/LicenseAgreement"));
 
 const server= app.listen(3000, function () {
     console.log("server started on port 3000")

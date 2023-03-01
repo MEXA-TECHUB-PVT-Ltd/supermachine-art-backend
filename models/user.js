@@ -30,7 +30,6 @@ const User = new Schema({
 	},
 	status: {
 		type: String,
-		required: true,
 		enum: ['unBlock', 'blocked']
 	},
 

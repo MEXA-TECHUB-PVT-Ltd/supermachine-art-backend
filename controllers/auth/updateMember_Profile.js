@@ -3,7 +3,7 @@ const User = require("../../models/User");
 const updateMember_Profile = async (req, res) => {
     try {
         const { _id, email, password, type } = req.body;
-        const photo = req.file.path;
+        console.log(req.body)
         const result = await User.findOneAndUpdate({ _id: _id },
             {
                 email: email,

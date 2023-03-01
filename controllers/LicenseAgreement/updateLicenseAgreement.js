@@ -1,10 +1,9 @@
-const TermOfUse = require("../../models/termOfUse");
+const LicenseAgreement = require("../../models/LicenseAgreement");
 
-const UpdateTermOfUse = async (req, res) => {
+const UpdateLicenseAgreement = async (req, res) => {
     try {
         const { _id, title,content } = req.body;
-        console.log(req.body);
-        const result = await TermOfUse.findOneAndUpdate({ _id: _id },
+        const result = await LicenseAgreement.findOneAndUpdate({ _id: _id },
             {
                 title: title,
                 content: content,
@@ -14,21 +13,21 @@ const UpdateTermOfUse = async (req, res) => {
             })
         if (!result) {
             res.json({
-                message: "TermOfUse not Exists!",
+                message: "License Agreement not Existeds!",
                 result,
             });
         } else {
             res.json({
-                message: "TermOfUse Updated Successfully!",
+                message: "License Agreement Updated Successfully!",
                 result,
             });
         }
     } catch (err) {
         res.json({
-            message: "TermOfUse Updation Failed!",
+            message: "License Agreement Updation Failed!",
             status: "none",
             err
         });
     }
 };
-module.exports = UpdateTermOfUse;
+module.exports = UpdateLicenseAgreement;
