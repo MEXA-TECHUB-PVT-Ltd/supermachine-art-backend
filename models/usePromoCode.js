@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const UsePromoCode = new Schema({
-    userID: {
+    SubscriptionPlanID: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "User",
+        ref: "SubscriptionPlan",
     },
     promoCodeID: {
         type: mongoose.Schema.Types.ObjectId,

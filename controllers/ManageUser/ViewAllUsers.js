@@ -8,8 +8,6 @@ const ViewAllUsers = async (req, res) => {
 				message: "No Users found!",
 				status: false,
 			});
-
-			res.json("No users found");
 		} else {
 			res.json({
 				message: "Users found!",

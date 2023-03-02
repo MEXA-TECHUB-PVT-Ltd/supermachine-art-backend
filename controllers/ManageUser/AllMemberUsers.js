@@ -1,21 +1,21 @@
 const Users = require("../../models/User");
-const ViewAllSubscribedUser = async (req, res) => {
+const AllMemberUsers = async (req, res) => {
 	try {
 		// const {  } = req.body;
-		const users = await Users.find({ type: "subscriber" });
-		if (!users) {
+		const result = await Users.find({ type: "member" });
+		if (!result) {
 			res.json({
 				message: "No Users found!",
 				status: false,
 			});
 		} else {
 			res.json({
-				message: "Users found!",
+				message: "Member Users Data!",
 				status: true,
-				users
+				result
 			});
-
 		}
+
 	} catch (err) {
 		res.json({
 			message: "error",
@@ -23,4 +23,4 @@ const ViewAllSubscribedUser = async (req, res) => {
 		});
 	}
 };
-module.exports = ViewAllSubscribedUser;
+module.exports = AllMemberUsers;

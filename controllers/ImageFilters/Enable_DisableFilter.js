@@ -2,10 +2,10 @@ const imageFilter = require("../../models/ImageFilters");
 
 const Enable_DisableFilter = async (req, res) => {
     try {
-        const { _id } = req.body;
+        const { _id,filterStatus } = req.body;
         const result = await imageFilter.findOneAndUpdate({ _id: _id },
             {
-                filterStatus: !filterStatus,
+                filterStatus: filterStatus,
             },
             {
                 new: true

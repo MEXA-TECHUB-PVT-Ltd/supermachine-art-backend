@@ -4,9 +4,9 @@ const User = require("../../models/User");
 
 const UsePromoCode = async (req, res) => {
     try {
-        const { userID, promoCodeID } = req.body;
+        const { SubscriptionPlanID, promoCodeID } = req.body;
         const createdAt = new Date();
-        const result = await new PromoCode({ userID, promoCodeID, createdAt });
+        const result = await new PromoCode({ SubscriptionPlanID, promoCodeID, createdAt });
         // const result = await User.findOneAndUpdate({ _id: userID },
         //     {
         //         type: 'subscriber',

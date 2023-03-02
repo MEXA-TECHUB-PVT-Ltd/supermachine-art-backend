@@ -10,7 +10,6 @@ const ViewAllUsers = async (req, res) => {
                 status:false,
             });
 		} else {
-			res.json( users );
 			res.json({
                 message: "Users found!",
                 status:true,
