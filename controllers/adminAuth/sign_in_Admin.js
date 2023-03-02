@@ -4,19 +4,25 @@ const jwt = require("jsonwebtoken");
 const sign_in_Admin = async (req, res) => {
 	const { email, password } = req.body;
 	const user = await Admin.findOne({ email });
-	console.log(user);
 	if (!user) {
-		res.json("No users found");
+		res.json({
+			message: "No users found",
+			status: false,
+		})
 	} else {
 		const validPassword = await bcrypt.compare(password, user.password);
 		if (!validPassword) {
-			res.status(400).send("Incorrect Password");
+			res.json({
+				message: "Password Incorrect",
+				status: false,
+			})
 		} else {
 			const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
 				expiresIn: "7d",
 			});
 			res.json({
-				message:"sign In Successfully!",
+				message: "sign In Successfully!",
+				status:true,
 				user,
 				token,
 			});

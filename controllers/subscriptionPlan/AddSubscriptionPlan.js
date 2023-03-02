@@ -2,10 +2,12 @@ const Plan = require("../../models/subscriptionPlan");
 
 const AddSubscriptionPlan = async (req, res) => {
     try {
-        const { name, type, price, feature, duration , imageDownloadSize,imageSearches} = req.body;
-        console.log(req.body);
+        const { name, price, feature, duration, imageDownloadSize, imageSearches } = req.body;
         if (!price) {
-            res.status(400).send("Price is required");
+            await res.json({
+                message: "Price is required",
+                status: false,
+            });
         }
         // const exist = await User.findOne({ email });
         // if (exist) {
@@ -13,20 +15,19 @@ const AddSubscriptionPlan = async (req, res) => {
         //     res.status(200).send("Email is already taken");
         // }
         else {
-            const plan = await new Plan({ name, price, feature, duration,imageDownloadSize,imageSearches });
+            const plan = await new Plan({ name, price, feature, duration, imageDownloadSize, imageSearches });
             plan.save();
             await res.json({
                 message: "Subscription Plan Added Successfully!",
+                status: true,
                 plan,
             });
         }
     } catch (err) {
         res.json({
-            message: "Subscription Plan Addition failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status: false,
         });
-        console.log(err)
     }
 };
 module.exports = AddSubscriptionPlan;

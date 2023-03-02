@@ -4,19 +4,22 @@ const AddImgSizeRatio = async (req, res) => {
     try {
         const { imageSize } = req.body;
         if (!imageSize) {
-            res.status(400).send("imageSize is required");
+            await res.json({
+                message: "imageSize is required",
+                status: false,
+            });    
         }
         const result =  new ImgSizeRatio({ imageSize });
         result.save();
         await res.json({
             message: "imageSize Added Successfully!",
+            status:false,
             result,
         });
     } catch (err) {
         res.json({
             message: "imageSize Addition failed!",
-            status: "none",
-            err
+            status: false,
         });
         console.log(err)
     }

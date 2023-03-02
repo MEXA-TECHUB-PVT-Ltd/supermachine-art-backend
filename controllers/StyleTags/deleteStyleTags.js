@@ -3,7 +3,10 @@ const DeleteStyleTags = async (req, res) => {
 	try {
 		const result = await StyleTags.findOneAndDelete({_id:req.params.id});
 		if (!result) {
-			res.json("No Style Tag Type found");
+			res.json({
+                message: "No Style Tag Type found",
+                status: false,
+            });
 		} else {
 			res.json({
 				message: "Style Tag Delected Successfully",
@@ -13,9 +16,8 @@ const DeleteStyleTags = async (req, res) => {
 			}
 	} catch (err) {
 		res.json({
-			message: "error",
-			status: "none",
-			err
+			message: "Error!",
+			status: false,
 		});
 	}
 };

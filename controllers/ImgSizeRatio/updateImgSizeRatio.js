@@ -13,19 +13,20 @@ const UpdateImgSizeRatio = async (req, res) => {
         if (!result) {
             res.json({
                 message: "Img Size not Existeds!",
+                status:false,
                 result,
             });
         } else {
             res.json({
                 message: "Img Size  Updated Successfully!",
+                status:true,
                 result,
             });
         }
     } catch (err) {
         res.json({
             message: "Img Size Updation Failed!",
-            status: "none",
-            err
+            status:false,
         });
     }
 };

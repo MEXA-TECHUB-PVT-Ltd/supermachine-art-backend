@@ -3,7 +3,10 @@ const DeleteUserType = async (req, res) => {
 	try {
 		const result = await UserType.findOneAndDelete({_id:req.params.id});
 		if (!result) {
-			res.json("No User Type found");
+			res.json({
+                message: "No User Type found",
+                status: false,
+            });
 		} else {
 			res.json({
 				message: "User Type Delected Successfully",
@@ -14,8 +17,7 @@ const DeleteUserType = async (req, res) => {
 	} catch (err) {
 		res.json({
 			message: "error",
-			status: "none",
-			err
+			status: false,
 		});
 	}
 };

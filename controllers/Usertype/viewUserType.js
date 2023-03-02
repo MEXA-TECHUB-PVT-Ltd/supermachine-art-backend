@@ -4,16 +4,22 @@ const ViewUserType = async (req, res) => {
 		// const {  } = req.body;
 		const result = await UserType.find();
 		if (!result) {
-			res.json("No  User Type  found");
+			res.json({
+				message: "No  User Type  found",
+				status: true,
+				result
+			});
 		} else {
-			console.log(result);
-			res.json(result);
+			res.json({
+				message: "User Type  Data",
+				status: true,
+				result
+			});
 		}
 	} catch (err) {
 		res.json({
 			message: "User Type  Fetching Failed",
 			status: false,
-			err
 		});
 	}
 };

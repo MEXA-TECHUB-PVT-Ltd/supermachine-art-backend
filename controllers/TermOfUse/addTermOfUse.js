@@ -4,24 +4,30 @@ const AddTermOfUse = async (req, res) => {
     try {
         const { title, content } = req.body;
         if (!title) {
-            res.status(400).send("title is required");
-        }
-        if (!content) {
-            res.status(400).send("content is required");
-        }
-        const result = await new TermOfUse({ title, content });
-        result.save();
-        await res.json({
-            message: "TermOfUse Added Successfully!",
-            result,
-        });
+            res.json({
+                message: "title is required",
+                status: false,
+            });
+        } else
+            if (!content) {
+                res.json({
+                    message: "content is required",
+                    status: false,
+                });
+            } else {
+                const result = await new TermOfUse({ title, content });
+                result.save();
+                await res.json({
+                    message: "TermOfUse Added Successfully!",
+                    status:true,
+                    result,
+                });
+            }
     } catch (err) {
         res.json({
-            message: "TermOfUse Addition failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status: false,
         });
-        console.log(err)
     }
 };
 module.exports = AddTermOfUse;

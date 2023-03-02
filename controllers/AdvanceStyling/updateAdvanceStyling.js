@@ -13,19 +13,19 @@ const UpdateAdvanceStyling = async (req, res) => {
         if (!result) {
             res.json({
                 message: "style Type not Existeds!",
-                result,
+                status:false,
             });
         } else {
             res.json({
                 message: "style Type  Updated Successfully!",
+                status:true,
                 result,
             });
         }
     } catch (err) {
         res.json({
             message: "style Type Updation Failed!",
-            status: "none",
-            err
+            status: "false",
         });
     }
 };

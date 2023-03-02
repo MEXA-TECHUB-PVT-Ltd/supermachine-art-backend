@@ -3,10 +3,13 @@ const deleteimageSizeRatio = async (req, res) => {
 	try {
 		const result = await imageSize.findOneAndDelete({_id:req.params.id});
 		if (!result) {
-			res.json("No imageSize found");
+			await res.json({
+                message: "No image Size found",
+                status: false,
+            });    
 		} else {
 			res.json({
-				message: "imageSize Delected Successfully",
+				message: "image Size Delected Successfully",
 				status: true,
 				result
 			});
@@ -14,8 +17,7 @@ const deleteimageSizeRatio = async (req, res) => {
 	} catch (err) {
 		res.json({
 			message: "error",
-			status: "none",
-			err
+			status: false,
 		});
 	}
 };

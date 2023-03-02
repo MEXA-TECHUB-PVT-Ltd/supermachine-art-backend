@@ -1,5 +1,6 @@
 const PromoCode = require("../../models/UsePromoCode");
 const User = require("../../models/User");
+// const Plan = require("../../models/subscriptionPlan");
 
 const UsePromoCode = async (req, res) => {
     try {
@@ -22,6 +23,7 @@ const UsePromoCode = async (req, res) => {
         result.save();
         res.json({
             message: "get PromoCode Sccessfully",
+            status:true,
             result,
         });
         // }
@@ -31,11 +33,9 @@ const UsePromoCode = async (req, res) => {
         // });
     } catch (err) {
         res.json({
-            message: "Promo Code  getting failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status: false,
         });
-        console.log(err)
     }
 };
 module.exports = UsePromoCode;

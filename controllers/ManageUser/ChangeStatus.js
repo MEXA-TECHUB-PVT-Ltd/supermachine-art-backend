@@ -18,22 +18,22 @@ const ChangeStatus = async (req, res) => {
             {
                 new: true
             })
-        console.log(`result is : ${result}`);
         if (!result) {
             res.json({
                 message: "Status Changing Failed",
-                result: result,
+                status: false,
             });
         } else {
             res.json({
                 message: "Status Change Successfully!",
+                status:true,
                 result: result,
             });
         }
     } catch (err) {
         res.json({
             message: "error",
-            result: "none",
+            result: false,
         });
     }
 };

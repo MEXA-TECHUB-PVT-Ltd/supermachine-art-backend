@@ -5,9 +5,16 @@ const ViewSubscriptionPlan = async (req, res) => {
 		const payments = await Payments.find();
 		console.log(payments);
 		if (!payments) {
-			res.json("No payments found");
+			res.json({
+                message: "No payment found!",
+                status:false,
+            });
 		} else {
-			res.json({ payments });
+			res.json({
+                message: "Payment Data Fetch Successfully!",
+                status:true,
+                payments,
+            });
 		}
 	} catch (err) {
 		res.json({

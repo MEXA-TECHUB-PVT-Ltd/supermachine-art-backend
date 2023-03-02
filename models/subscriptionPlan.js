@@ -20,7 +20,7 @@ const SubscriptionPlan = new Schema({
 		required: true,
 	},
 	imageDownloadSize: {
-		type: String,
+		type: Array,
 		required: true,
 	},
 	imageSearches: {

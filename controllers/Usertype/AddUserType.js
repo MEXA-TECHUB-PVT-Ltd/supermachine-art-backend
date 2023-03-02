@@ -4,21 +4,24 @@ const AddUserType = async (req, res) => {
     try {
         const { type } = req.body;
         if (!type) {
-            res.status(400).send("type is required");
+            res.json({
+                message: "type is required",
+                status: false,
+            });
+        } else {
+            const result = new UserType({ type });
+            result.save();
+            await res.json({
+                message: "type Added Successfully!",
+                status:true,
+                result,
+            });
         }
-        const result =  new UserType({ type });
-        result.save();
-        await res.json({
-            message: "type Added Successfully!",
-            result,
-        });
     } catch (err) {
         res.json({
-            message: "type Addition failed!",
-            status: "none",
-            err
+            message: "Error!",
+            status: false,
         });
-        console.log(err)
     }
 };
 module.exports = AddUserType;

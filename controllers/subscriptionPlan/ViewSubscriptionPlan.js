@@ -1,19 +1,23 @@
 const Plan = require("../../models/subscriptionPlan");
 const ViewSubscriptionPlan = async (req, res) => {
 	try {
-		// const {  } = req.body;
 		const plan = await Plan.find();
-		console.log(plan);
 		if (!plan) {
-			res.json("No plan found");
+			res.json({
+                message: "No plan found",
+                status:false,
+            });
 		} else {
-			res.json(plan);
+			res.json({
+                message: "plan Data!",
+                status:true,
+				plan
+            });
 		}
 	} catch (err) {
 		res.json({
-			message: "error",
-			status: "none",
-			err
+			message: "Error!",
+			status: false,
 		});
 	}
 };

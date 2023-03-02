@@ -3,7 +3,10 @@ const deletePromoCode = async (req, res) => {
 	try {
 		const code = await PromoCode.findOneAndDelete({_id:req.params.id});
 		if (!code) {
-			res.json("No Promo Code found");
+			res.json({
+				message: "No Promo Code found",
+				status: false,
+			});    
 		} else {
 			res.json({
 				message: "Promo Code Delected Successfully",
@@ -14,8 +17,7 @@ const deletePromoCode = async (req, res) => {
 	} catch (err) {
 		res.json({
 			message: "error",
-			status: "none",
-			err
+			status: false,
 		});
 	}
 };
