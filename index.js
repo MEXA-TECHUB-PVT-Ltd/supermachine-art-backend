@@ -42,6 +42,7 @@ app.use("/advance_styling/", require("./routes/AdvanceStyling"));
 app.use("/style_tags/", require("./routes/StyleTags"));
 app.use("/license_agreement/", require("./routes/LicenseAgreement"));
 app.use("/image_filters/", require("./routes/ImageFilter"));
+app.use("/faqs/", require("./routes/FAQs"));
 
 const server= app.listen(3000, function () {
     console.log("server started on port 3000")
