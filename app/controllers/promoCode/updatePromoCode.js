@@ -16,7 +16,7 @@ const UpdatePromoCode = async (req, res) => {
         )
         if (!result) {
             res.json({
-                message: "Promo Code not Existeds!",
+                message: "Promo Code not updated!",
                 status: true,
                 result,
             });

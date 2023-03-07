@@ -1,20 +1,25 @@
-const Plan = require("../../models/subscriptionPlan");
+// const Plan = require("../../models/subscriptionPlan");
+
+const db = require("../../models");
+const Plan = db.subscriptionPlanImageSize;
+
 const ViewSubscriptionPlanAlotedData = async (req, res) => {
 	try {
-		const { _id } = req.body;
-		const plan = await Plan.find({_id:_id});
+		const { id } = req.body;
+		const plan = await Plan.findAll(
+			{ where: { SubscriptionPlanID: id } });
 		console.log(plan);
 		if (!plan) {
 			res.json({
-                message: "No plan found",
-                status:false,
-            });
+				message: "No plan found",
+				status: false,
+			});
 		} else {
 			res.json({
-                message: "plan Data!",
-                status:true,
+				message: "plan Data!",
+				status: true,
 				plan
-            });
+			});
 		}
 	} catch (err) {
 		res.json({

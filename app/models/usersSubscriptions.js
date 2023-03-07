@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
 	const UsersSubscriptions = sequelize.define("UsersSubscriptions", {
     userID: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         required: true,
         // ref: "User",
     },
@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
         required: true,
     },
     subscriptionID: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         // type: mongoose.Schema.Types.ObjectId,
         required: true,
         // ref: "subscriptionPlan",

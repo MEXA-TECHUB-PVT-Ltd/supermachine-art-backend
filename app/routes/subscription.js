@@ -27,7 +27,7 @@ router.post("/avail_subscription" , AvailSubscription)
 router.get("/view_subscription_plan_user", ViewSubscriptionPlanUser);
 router.post("/view_aloted_sizes", ViewSubscriptionPlanAlotedSizes);
 router.put("/add_size_to_plan", AddSizeToPlan);
-router.put("/remove_aloted_sizes", removeAlotedSize);
+router.delete("/remove_aloted_sizes/:id", removeAlotedSize);
 router.get("/view_subscription_plan_specific_user", ViewSubscriptionPlanSpecificUser);
 
 app.use("/Subscription", router);

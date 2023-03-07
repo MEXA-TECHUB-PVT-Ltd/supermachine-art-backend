@@ -44,6 +44,7 @@ require("./app/routes/StyleTags")(app);
 require("./app/routes/LicenseAgreement")(app);
 require("./app/routes/ImageFilter")(app);
 require("./app/routes/FAQs")(app);
+require("./app/routes/folder")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8082;
