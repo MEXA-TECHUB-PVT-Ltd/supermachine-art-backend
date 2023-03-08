@@ -19,10 +19,6 @@ module.exports = (sequelize, Sequelize) => {
         required: true,
         // ref: "subscriptionPlan",
     },
-    date: {
-        type: Sequelize.STRING,
-        required: true,
-    },
 });
 return UsersSubscriptions;
 };

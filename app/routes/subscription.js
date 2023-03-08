@@ -12,6 +12,8 @@ const removeAlotedSize  = require("../controllers/subscriptionPlan/removeAlotedS
 const viewASpecificSubscriptionPlan  = require("../controllers/subscriptionPlan/viewASpecificSubscriptionPlan");
 const ViewSubscriptionPlanSpecificUser  = require("../controllers/subscriptionPlan/ViewSubscriptionPlanSpecificUser");
 const DeleteSpecificSubscriptionPlan  = require("../controllers/subscriptionPlan/DeleteSpecificSubscriptionPlan");
+const viewSubscriptionPlanFreeTrail  = require("../controllers/subscriptionPlan/viewSubscriptionPlanFreeTrail");
+const viewSubscriptionPlanbyUserType  = require("../controllers/subscriptionPlan/viewSubscriptionPlanbyUserType");
 
 // const upload = require("../middlewares/userPicsMulter")
 let router = require("express").Router();
@@ -29,6 +31,8 @@ router.post("/view_aloted_sizes", ViewSubscriptionPlanAlotedSizes);
 router.put("/add_size_to_plan", AddSizeToPlan);
 router.delete("/remove_aloted_sizes/:id", removeAlotedSize);
 router.get("/view_subscription_plan_specific_user", ViewSubscriptionPlanSpecificUser);
+router.get("/view_subscription_plan_free_trail", viewSubscriptionPlanFreeTrail);
+router.get("/view_subscription_plan_user_type", viewSubscriptionPlanbyUserType);
 
 app.use("/Subscription", router);
 };

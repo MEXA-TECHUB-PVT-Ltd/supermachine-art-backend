@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
 	const ImageFilters = sequelize.define("ImageFilters", {
-	filterStatus: {
+	name: {
 		type: Sequelize.STRING,
 		required: true,
 	},

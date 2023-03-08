@@ -7,13 +7,11 @@ const User = db.user;
 const availSubscription = async (req, res) => {
     try {
         const { userID, name, email, subscriptionID } = req.body;
-        const date = new Date();
         const data = {
             userID: userID,
             name: name,
             email: email,
             subscriptionID: subscriptionID,
-            date: "date"
         }
         const plan = Plan.create(data);
         const result = await User.update(

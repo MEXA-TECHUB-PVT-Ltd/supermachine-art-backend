@@ -14,28 +14,12 @@ const ViewSubscriptionPlanSpecificUser = async (req, res) => {
 				status: false,
 			});
 		} else {
-			// const plan = await Plan.find({});
-			// // console.log(plan);
-			// for (let i = 0; i < availPlan.length; i++) {
-			// 	for (let j = 0; j < plan.length; j++) {
-			// 		console.log(availPlan[i].subscriptionID+ "  :  "+plan[j]._id);
-			// 		if (availPlan[i].subscriptionID.equals(plan[j]._id)) {
-			// 			console.log("IF"+j);
-			// 			// res.json(plan);
-			// 		}
-			// 	}
-			// }
 			res.json({
 				message: "Subscription Data!",
 				status: true,
 				results
 			});
 		}
-		// if (!plan) {
-		// 	res.json("No plan found");
-		// } else {
-		// 	res.json(plan);
-		// }
 	} catch (err) {
 		res.json({
 			message: "error",

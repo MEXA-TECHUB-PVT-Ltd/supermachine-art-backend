@@ -9,7 +9,7 @@ const ViewSubscriptionPlanUser = async (req, res) => {
 
 		let query = `SELECT "UsersSubscriptions".id, "UsersSubscriptions".name AS "Uname", "UsersSubscriptions".email,
 		 "UsersSubscriptions".date ,"SubscriptionPlans".name,
-		  "SubscriptionPlans".duration FROM "UsersSubscriptions" 
+		  "SubscriptionPlans".validaty FROM "UsersSubscriptions" 
 		    JOIN "SubscriptionPlans" ON "UsersSubscriptions"."subscriptionID" = "SubscriptionPlans"."id"`;
 		// let query = `SELECT "UsersSubscriptions".id, "UsersSubscriptions".name, "UsersSubscriptions".email,
 		// "UsersSubscriptions".date, "SubscriptionPlans".duration FROM "UsersSubscriptions" JOIN "SubscriptionPlans" ON "UsersSubscriptions"."subscriptionPlanID" = "SubscriptionPlans"."id"`;
