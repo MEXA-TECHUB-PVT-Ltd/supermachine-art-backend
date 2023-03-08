@@ -1,26 +1,14 @@
-const Plan = require("../../models/subscriptionPlan");
-const AvailPlan = require("../../models/usersSubscriptions");
-
+// const Plan = require("../../models/subscriptionPlan");
+// const AvailPlan = require("../../models/usersSubscriptions");
+const db = require("../../models");
+const AvailPlan = db.usersSubscriptions;
 const ViewSubscriptionPlanSpecificUser = async (req, res) => {
 	try {
-		const { _id } = req.body;
-		const result = await AvailPlan.aggregate([
-			{
-				$match: {
-					userID: _id
-				}
-			},
-			{
-				$lookup: {
-					from: "subscriptionplans",
-					localField: 'subscriptionID',
-					foreignField: '_id',
-					as: "SubscriptionData"
-				}
-			}
-
-		]);
-		if (!result) {
+		const { id } = req.body;
+		let query = `SELECT "PromoCodes".id, "PromoCodes".code, "PromoCodes".discount, "PromoCodes".expiry, "SubscriptionPlans".name, "SubscriptionPlans".feature FROM "usersSubscriptions"   JOIN "SubscriptionPlans" 
+		ON "usersSubscriptions"."subscriptionID" = "SubscriptionPlans"."id"`;
+		const [results] = await db.sequelize.query(query);
+		if (!results) {
 			res.json({
 				message: "No Subscription found",
 				status: false,
@@ -40,7 +28,7 @@ const ViewSubscriptionPlanSpecificUser = async (req, res) => {
 			res.json({
 				message: "Subscription Data!",
 				status: true,
-				result
+				results
 			});
 		}
 		// if (!plan) {

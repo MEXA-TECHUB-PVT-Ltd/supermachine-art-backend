@@ -1,24 +1,21 @@
-const Plan = require("../../models/subscriptionPlan");
+// const Plan = require("../../models/subscriptionPlan");
 
+const db = require("../../models");
+const Plan = db.subscriptionPlanImageSize;
 const removeAlotedSize = async (req, res) => {
     try {
-        const { plan_id, imageSize } = req.body;
-        const result = await Plan.findOneAndUpdate({ _id: plan_id },
-            {
-                $pull: { imageDownloadSize: imageSize }
-            },
-            {
-                new: true
-            })
+        const { id } = req.params.id;
+        console.log("ID :    " + id);
+        const result = await Plan.destroy({ where: { id: req.params.id } });
         if (!result) {
             res.json({
-                message: "Plan not Existeds!",
-                status:false
+                message: "Plan Size not Exists!",
+                status: false
             });
         } else {
             res.json({
-                message: "Plan Updated Successfully!",
-                status:true,
+                message: "Size Removed Successfully!",
+                status: true,
                 result,
             });
         }

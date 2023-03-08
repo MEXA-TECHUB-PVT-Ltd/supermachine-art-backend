@@ -40,5 +40,7 @@ db.user = require("./user")(sequelize, Sequelize);
 db.userOTPVerificationModel = require("./userOTPVerificationModel")(sequelize, Sequelize);
 db.usersSubscriptions = require("./usersSubscriptions")(sequelize, Sequelize);
 db.UserType = require("./UserType")(sequelize, Sequelize);
+db.subscriptionPlanImageSize = require("./subscriptionPlanImageSize")(sequelize, Sequelize);
+db.Folder = require("./folder")(sequelize, Sequelize);
 
 module.exports = db;

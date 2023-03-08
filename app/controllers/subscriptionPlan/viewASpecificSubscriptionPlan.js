@@ -1,8 +1,10 @@
-const Plan = require("../../models/subscriptionPlan");
+const db = require("../../models");
+const Plan = db.subscriptionPlan;
+
 const viewASpecificSubscriptionPlan = async (req, res) => {
 	try {
-		const {_id} = req.body
-		const result = await Plan.find({_id:_id});
+		const {id} = req.body
+		const result = await Plan.findAll({where:{id:id}});
 		if (!result) {
 			res.json({
                 message: "No plan found",
