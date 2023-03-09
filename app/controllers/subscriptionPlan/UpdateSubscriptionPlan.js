@@ -4,12 +4,17 @@ const Plan = db.subscriptionPlan;
 
 const UpdateSubscriptionPlan = async (req, res) => {
     try {
-        const { id, price, imageDownloadSize, imageSearches } = req.body;
+        const {id, name, price, userType, noOfUsers, noOfImagesGenerates, validity, freeTrail, freeTrailDays } = req.body;
         const result = await Plan.update(
             {
+                name: name,
                 price: price,
-                imageDownloadSize: imageDownloadSize,
-                imageSearches: imageSearches,
+                userType: userType,
+                noOfUsers: noOfUsers,
+                noOfImagesGenerates: noOfImagesGenerates,
+                validity: validity,
+                freeTrail: freeTrail,
+                freeTrailDays: freeTrailDays,
             },
             { where: { id: id } }
         )

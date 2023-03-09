@@ -1,23 +1,29 @@
 // const imageFilter = require("../../models/ImageFilters");
 const db = require("../../models");
-const imageFilter = db.ImageFilters;
+const ImageAspects = db.ImageAspects;
 const Op = db.Sequelize.Op;
-const AddFilter = async (req, res) => {
+const AddImageAspects = async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, resolution } = req.body;
         if (!name) {
             res.json({
                 message: "name is required",
                 status: false,
             });
+        } else if (!resolution) {
+            res.json({
+                message: "resolution is required",
+                status: false,
+            });
         } else {
             const data = {
                 name: name,
+                resolution:resolution,
             }
             // const result = await new LicenseAgreement({ title, content });
-            imageFilter.create(data).then(result => {
+            ImageAspects.create(data).then(result => {
                 res.json({
-                    message: "Filter Added Successfully!",
+                    message: "Image Aspects Added Successfully!",
                     status: true,
                     result,
                 });
@@ -31,4 +37,4 @@ const AddFilter = async (req, res) => {
         });
     }
 };
-module.exports = AddFilter;
+module.exports = AddImageAspects;

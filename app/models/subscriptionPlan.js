@@ -1,6 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
 	const SubscriptionPlan = sequelize.define("SubscriptionPlan", {
-
 		name: {
 			type: Sequelize.STRING,
 			required: true,
@@ -9,22 +8,29 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING,
 			required: true,
 		},
-		feature: {
+		userType: {
 			type: Sequelize.STRING,
 			required: true,
 		},
-		duration: {
+		noOfUsers: {
 			type: Sequelize.STRING,
 			required: true,
 		},
-		imageDownloadSize: {
+		noOfImagesGenerates: {
 			type: Sequelize.STRING,
-			// type: Array,
 			required: true,
 		},
-		imageSearches: {
+		validity: {
 			type: Sequelize.STRING,
 			required: true,
+			//days
+		},
+		freeTrail: {
+			type: Sequelize.STRING,
+		},
+		freeTrailDays: {
+			type: Sequelize.STRING,
+			//auto by backend
 		},
 	});
 	return SubscriptionPlan;

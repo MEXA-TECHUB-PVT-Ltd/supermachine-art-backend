@@ -27,6 +27,7 @@ db.admin = require("./admin")(sequelize, Sequelize);
 db.AdvanceStyling = require("./AdvanceStyling")(sequelize, Sequelize);
 db.FAQsModel = require("./FAQs.model")(sequelize, Sequelize);
 db.ImageFilters = require("./ImageFilters")(sequelize, Sequelize);
+db.ImageAspects = require("./ImageAspects")(sequelize, Sequelize);
 db.ImgSizeRatio = require("./ImgSizeRatio")(sequelize, Sequelize);
 db.LicenseAgreement = require("./LicenseAgreement")(sequelize, Sequelize);
 db.payments = require("./payments")(sequelize, Sequelize);
@@ -42,5 +43,6 @@ db.usersSubscriptions = require("./usersSubscriptions")(sequelize, Sequelize);
 db.UserType = require("./UserType")(sequelize, Sequelize);
 db.subscriptionPlanImageSize = require("./subscriptionPlanImageSize")(sequelize, Sequelize);
 db.Folder = require("./folder")(sequelize, Sequelize);
+db.subscriptionFeatures = require("./subscriptionFeatures")(sequelize, Sequelize);
 
 module.exports = db;

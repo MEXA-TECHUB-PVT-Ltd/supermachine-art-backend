@@ -7,8 +7,12 @@ const Op = db.Sequelize.Op;
 
 const AddFolder = async (req, res) => {
     try {
-        const { userID, name, image, description, status} = req.body;
-        console.log(req.body);
+        const { userID, name, description, status} = req.body;
+        console.log(req);
+        let photo = '';
+        if (req.file) {
+             photo = req.file.path;
+        }
         if (!name) {
             res.json({
                 message: "Folder Name is required",
@@ -24,6 +28,7 @@ const AddFolder = async (req, res) => {
             const data = {
                 name: name,
                 userID: userID,
+                image:photo,
                 description:description,
                 status:status
             }
