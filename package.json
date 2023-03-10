@@ -18,8 +18,12 @@
   "author": "bezkoder",
   "license": "ISC",
   "dependencies": {
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "@improbable-eng/grpc-web-node-http-transport": "^0.15.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "google-protobuf": "^3.21.2",
+    "grpc": "^1.24.11",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^5.21.3"

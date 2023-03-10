@@ -8,10 +8,14 @@ const Op = db.Sequelize.Op;
 const AddFolder = async (req, res) => {
     try {
         const { userID, name, description, status} = req.body;
-        console.log(req);
+        // const imageType = req.file.mimetype;
+        // const imageName = req.file.originalname;
+        // const imageData = req.file.buffer;
+        const { path } = req.file;
+        console.log(path);
         let photo = '';
         if (req.file) {
-             photo = req.file.path;
+             photo = path;
         }
         if (!name) {
             res.json({
@@ -30,7 +34,7 @@ const AddFolder = async (req, res) => {
                 userID: userID,
                 image:photo,
                 description:description,
-                status:status
+                status:status,
             }
             Folder.create(data).then(result => {
                 res.json({

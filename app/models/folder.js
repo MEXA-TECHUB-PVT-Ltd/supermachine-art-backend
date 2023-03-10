@@ -19,6 +19,15 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING,
 			required: true,
 		},
+		// imageType: {
+		// 	type: Sequelize.STRING,
+		// },
+		// imageName: {
+		// 	type: Sequelize.STRING,
+		// },
+		// imageData: {
+		// 	type: Sequelize.BLOB('long'),
+		// },
 	});
 
 	return Folder;

@@ -1,20 +1,22 @@
 const express = require("express");
-// const bodyParser = require("body-parser"); /* deprecated */
+const bodyParser = require("body-parser"); /* deprecated */
 const cors = require("cors");
 
 const app = express();
-
 var corsOptions = {
   // origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions));
-
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(express.json());
 // parse requests of content-type - application/json
 app.use(express.json());  /* bodyParser.json() is deprecated */
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));   /* bodyParser.urlencoded() is deprecated */
+app.use("/FolderImages", express.static("FolderImages"))
 
 const db = require("./app/models");
 db.sequelize.sync();
@@ -46,6 +48,9 @@ require("./app/routes/ImageFilter")(app);
 require("./app/routes/FAQs")(app);
 require("./app/routes/folder")(app);
 require("./app/routes/ImageAspects")(app);
+require("./app/routes/GalleryImages")(app);
+require("./app/routes/GalleryProfile")(app);
+require("./app/routes/Images")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8082;

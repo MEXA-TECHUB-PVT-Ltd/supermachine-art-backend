@@ -30,7 +30,9 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		freeTrailDays: {
 			type: Sequelize.STRING,
-			//auto by backend
+		},
+		feature:{
+			type: Sequelize.STRING,
 		},
 	});
 	return SubscriptionPlan;

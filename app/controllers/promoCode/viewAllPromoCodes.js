@@ -6,7 +6,9 @@ const promoCode = db.promoCode;
 const ViewAllPromoCode = async (req, res) => {
 	try {
 		// const {  } = req.body;
-		let query = `SELECT "PromoCodes".id, "PromoCodes".code, "PromoCodes".discount, "PromoCodes".expiry, "SubscriptionPlans".name, "SubscriptionPlans".feature FROM "PromoCodes"   JOIN "SubscriptionPlans" 
+		let query = `SELECT "PromoCodes".id, "PromoCodes".code, "PromoCodes".discount,
+		 "PromoCodes".expiry, "SubscriptionPlans".name, 
+		 "SubscriptionPlans".feature FROM "PromoCodes"   JOIN "SubscriptionPlans" 
 		ON "PromoCodes"."SubscriptionPlanID" = "SubscriptionPlans"."id"`;
 		const [results] = await db.sequelize.query(query);
 		// const result = await promoCode.aggregate([
