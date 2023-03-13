@@ -1,19 +1,19 @@
 // const Users = require("../../models/User");
 const db = require("../../models");
-const Folder = db.Folder;
+const GalleryProfile = db.GalleryProfile;
 
-const GetAllFolderUser = async (req, res) => {
+const ViewMyProfile = async (req, res) => {
 	try {
-		const { userID , id} = req.body;
-		const users = await Folder.findOne({where:{id:id, userID: userID }});
+		const { id } = req.body;
+		const users = await GalleryProfile.findOne({ where: { userID: req.params.id } });
 		if (!users) {
 			res.json({
-				message: "No Folder found!",
+				message: "No Profile found!",
 				status: false,
 			});
 		} else {
 			res.json({
-				message: "Folder Data!",
+				message: "Profile Data!",
 				status: true,
 				users
 			});
@@ -26,4 +26,4 @@ const GetAllFolderUser = async (req, res) => {
 		});
 	}
 };
-module.exports = GetAllFolderUser;
+module.exports = ViewMyProfile;
