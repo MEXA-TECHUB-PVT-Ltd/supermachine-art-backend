@@ -9,9 +9,9 @@ const GalleryProfile = db.GalleryProfile;
 const AddFolder = async (req, res) => {
     try {
         const { userID, name, description, status } = req.body;
-        const { path } = req.file;
         let photo = '';
         if (req.file) {
+            const { path } = req.file;
             photo = path;
         }
         if (!name) {

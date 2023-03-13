@@ -4,10 +4,10 @@ const imageFilter = db.ImageFilters;
 const Op = db.Sequelize.Op;
 const Enable_DisableFilter = async (req, res) => {
     try {
-        const { id, filterStatus } = req.body;
+        const { id, status } = req.body;
         const result = await imageFilter.update(
             {
-                filterStatus: filterStatus,
+                status: status,
             },
             { where: { id: id } }
         )

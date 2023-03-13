@@ -1,10 +1,10 @@
 const db = require("../../models");
 const ImageFilters = db.ImageFilters;
 
-const GetAllFilters = async (req, res) => {
+const GetFilters = async (req, res) => {
 	try {
 		// const {  id} = req.body;
-		const result = await ImageFilters.findAll({where:{status:"true" }});
+		const result = await ImageFilters.findAll();
 		if (!result) {
 			res.json({
 				message: "No Image Filters found!",
@@ -25,4 +25,4 @@ const GetAllFilters = async (req, res) => {
 		});
 	}
 };
-module.exports = GetAllFilters;
+module.exports = GetFilters;
