@@ -1,14 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
-	const subscriptionFeatures = sequelize.define("subscriptionFeatures", {
-		subscriptionID: {
+	const GalleryImages = sequelize.define("GalleryImages", {
+        folderID: {
 			type: Sequelize.INTEGER,
 			required: true,
 		},
-		feature: {
+		image: {
 			type: Sequelize.STRING,
 			required: true,
 		},
-	});
 
-	return subscriptionFeatures;
+	});
+	return GalleryImages;
 };

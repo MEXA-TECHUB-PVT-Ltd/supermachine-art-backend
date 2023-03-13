@@ -18,7 +18,7 @@ module.exports = app => {
     router.get("/view_all_folder_user/:id", GetAllFolderUser);
     router.get("/view_a_specific_folder_user", GetAFolder);
     router.put("/update_folder_status", UpdateFolderStatus);
-    router.get("/view_all_public_folders", getAllPublicFolder);
+    router.get("/view_all_public_folders/:id", getAllPublicFolder);
 
     app.use("/folder", router);
 };

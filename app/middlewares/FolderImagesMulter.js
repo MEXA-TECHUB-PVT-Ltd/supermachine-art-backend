@@ -3,7 +3,7 @@ const multer = require('multer');
 try{
    var storage=multer.diskStorage({
       destination:function(req,file,cb){
-          cb(null, "FolderImages/")
+          cb(null, "FolderImages")
       },
       filename:function(req,file,cb){
           cb(null ,Date.now() + "--" + file.originalname)

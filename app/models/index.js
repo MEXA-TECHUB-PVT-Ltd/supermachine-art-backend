@@ -22,6 +22,7 @@ db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
 db.FAQS = require("./FAQS")(sequelize, Sequelize);
 db.likes = require("./FAQs.likes")(sequelize, Sequelize);
 db.dislikes = require("./FAQS.dislikes")(sequelize, Sequelize);
+db.GalleryImages = require("./GalleryImages")(sequelize, Sequelize);
 
 db.admin = require("./admin")(sequelize, Sequelize);
 db.AdvanceStyling = require("./AdvanceStyling")(sequelize, Sequelize);
@@ -43,6 +44,7 @@ db.usersSubscriptions = require("./usersSubscriptions")(sequelize, Sequelize);
 db.UserType = require("./UserType")(sequelize, Sequelize);
 db.subscriptionPlanImageSize = require("./subscriptionPlanImageSize")(sequelize, Sequelize);
 db.Folder = require("./folder")(sequelize, Sequelize);
-db.subscriptionFeatures = require("./subscriptionFeatures")(sequelize, Sequelize);
+db.GalleryProfile = require("./galleryProfile")(sequelize, Sequelize);
+db.Images = require("./Images")(sequelize, Sequelize);
 
 module.exports = db;

@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 
 const AddSubscriptionPlan = async (req, res) => {
     try {
-        const { name, price, userType, noOfUsers, noOfImagesGenerates, validity, freeTrail, freeTrailDays } = req.body;
+        const { name, price, userType, noOfUsers, noOfImagesGenerates, validity, freeTrail, freeTrailDays , feature} = req.body;
         if (!name) {
             await res.json({
                 message: "name is required",
@@ -57,7 +57,7 @@ const AddSubscriptionPlan = async (req, res) => {
                             validity: validity,
                             freeTrail: freeTrail,
                             freeTrailDays: freeTrailDays,
-
+                            feature:feature
                         };
                         Plan.create(plan).then(result => {
                             res.json({
