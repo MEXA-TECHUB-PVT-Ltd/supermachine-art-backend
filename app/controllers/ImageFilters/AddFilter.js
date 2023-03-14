@@ -13,6 +13,7 @@ const AddFilter = async (req, res) => {
         } else {
             const data = {
                 name: name,
+                status:true
             }
             // const result = await new LicenseAgreement({ title, content });
             imageFilter.create(data).then(result => {

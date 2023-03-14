@@ -6,7 +6,7 @@ module.exports = app => {
     // const UpdateFolder = require("../controllers/folder/UpdateFolder");
     // const GetAllFolderUser = require("../controllers/folder/GetAllFolderUser");
     // const GetAFolder = require("../controllers/folder/GetAFolder");
-    // const UpdateFolderStatus = require("../controllers/folder/UpdateFolderStatus");
+    const UpdateProfile = require("../controllers/GalleryProfile/UpdateProfile");
 
     const upload = require("../middlewares/FolderImagesMulter")
     let router = require("express").Router();
@@ -17,7 +17,7 @@ module.exports = app => {
     // router.put("/update_gallery_profile", UpdateFolder);
     router.get("/view_my_profile/:id", ViewMyProfile);
     // router.get("/view_a_specific_folder_user", GetAFolder);
-    // router.put("/update_folder_status", UpdateFolderStatus);
+    router.put("/update_profile", upload.single("photo"), UpdateProfile);
     router.get("/view_all_gallery_profiles", getAllPublicProfiles);
 
     app.use("/gallery_profile", router);

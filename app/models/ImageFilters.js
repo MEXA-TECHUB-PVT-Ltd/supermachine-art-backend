@@ -4,6 +4,10 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING,
 		required: true,
 	},
+	status: {
+		type: Sequelize.STRING,
+		required: true,
+	}
 });
 return ImageFilters;
 };
