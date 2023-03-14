@@ -2,7 +2,8 @@ const db = require("../../models");
 const ViewSubscriptionPlanSpecificUser = async (req, res) => {
 	try {
 		let query = `SELECT "PromoCodes".id, "PromoCodes".code, 
-		"PromoCodes".discount, "PromoCodes".expiry, "SubscriptionPlans".name, "SubscriptionPlans".feature FROM "usersSubscriptions"   JOIN "SubscriptionPlans" 
+		"PromoCodes".discount, "PromoCodes".expiry, "SubscriptionPlans".name,
+		 "SubscriptionPlans".feature FROM "usersSubscriptions"   JOIN "SubscriptionPlans" 
 		ON "usersSubscriptions"."subscriptionID" = "SubscriptionPlans"."id"`;
 		const [results] = await db.sequelize.query(query);
 		if (!results) {
