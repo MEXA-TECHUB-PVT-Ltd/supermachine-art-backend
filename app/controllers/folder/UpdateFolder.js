@@ -4,11 +4,10 @@ const Folder = db.Folder;
 
 const ChangeStatus = async (req, res) => {
     try {
-        const { id, name, description, image } = req.body;
+        const { id, name } = req.body;
         const result = await Folder.update(
             {
                 name: name,
-                description:description,
             },
             { where: { id: id } }
         )

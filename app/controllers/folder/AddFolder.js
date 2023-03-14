@@ -8,21 +8,10 @@ const GalleryProfile = db.GalleryProfile;
 
 const AddFolder = async (req, res) => {
     try {
-        const { userID, name, description, status } = req.body;
-        let photo = '';
-        if (req.file) {
-            const { path } = req.file;
-            photo = path;
-        }
+        const { userID, name, status } = req.body;
         if (!name) {
             res.json({
                 message: "Folder Name is required",
-                status: false,
-            });
-
-        } else if (!description) {
-            res.json({
-                message: "Folder description is required",
                 status: false,
             });
         } else {
@@ -31,8 +20,6 @@ const AddFolder = async (req, res) => {
                 const data = {
                     name: name,
                     userID: userID,
-                    image: photo,
-                    description: description,
                     status: status,
                 }
                 Folder.create(data).then(result => {

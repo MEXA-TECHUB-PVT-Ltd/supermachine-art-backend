@@ -4,8 +4,7 @@ const Folder = db.Folder;
 
 const ChangeStatus = async (req, res) => {
     try {
-        const { id, status , userID} = req.body;
-        const gallery = await GalleryProfile.findOne({ where: { userID: userID } });
+        const { id, status, userID } = req.body;
         const result = await Folder.update(
             {
                 status: status,
