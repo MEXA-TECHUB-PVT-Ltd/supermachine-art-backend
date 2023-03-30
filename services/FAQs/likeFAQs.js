@@ -1,23 +1,21 @@
 const db = require("../../models");
-// const FAQs = db.FAQS;
-const likes = db.likes;
+const like = db.likes;
+const FAQ = db.FAQS;
 
-// const ObjectId = require("mongodb").ObjectId;
 
 const likeFAQs = async (req, res) => {
     try {
-        const { id, userID } = req.body;
-        // const _id = new ObjectId(id)
-        // const user_id = new ObjectId(userID)
-        const matchLikes = await likes.findOne(
-            { where: { likes: userID } }
+        const { FAQID, userID } = req.body;
+        const matchLikes = await like.findOne(
+            { where: { userID: userID,faqsId:FAQID } }
         );
-        if (matchLikes===null) {
+        if (matchLikes === null) {
+            const results = await FAQ.increment('likes', { by: 1, where: { id: FAQID } });
             const data = {
-                faqsId:id,
-                likes: userID
+                faqsId: FAQID,
+                userID: userID
             };
-            likes.create(data).then(result => {
+            like.create(data).then(result => {
                 res.json({
                     message: "liked Successfully!",
                     status: true,
@@ -26,11 +24,12 @@ const likeFAQs = async (req, res) => {
 
             })
         } else {
-            const result = await likes.destroy({ where: { FAQsID:id, likes: userID } })
+            const results = await FAQ.increment('likes', { by: -1, where: { id: FAQID } });
+            const result = await like.destroy({ where: { faqsId: FAQID, userID: userID } })
             res.json({
                 message: "Remove like Successfully!",
                 status: true,
-                result,
+                result : matchLikes,
             });
         }
     } catch (err) {
