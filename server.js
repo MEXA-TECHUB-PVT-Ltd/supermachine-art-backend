@@ -16,9 +16,9 @@ app.use(express.json());  /* bodyParser.json() is deprecated */
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));   /* bodyParser.urlencoded() is deprecated */
-app.use("/FolderImages", express.static("FolderImages"))
+app.use("/imges_uploads", express.static("imges_uploads"))
 
-const db = require("./app/models");
+const db = require("./models");
 db.sequelize.sync();
 // // drop the table if it already exists
 // db.sequelize.sync({ force: true }).then(() => {
@@ -30,27 +30,27 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Super Machine." });
 });
 
-require("./app/routes/turorial.routes")(app);
-require("./app/routes/faqs.routes")(app);
-require("./app/routes/privacyPolicy")(app);
-require("./app/routes/ImgRatioSize")(app);
-require("./app/routes/UserType")(app);
-require("./app/routes/AdvanceStyling")(app);
-require("./app/routes/ManageUser")(app);
-require("./app/routes/subscription")(app);
-require("./app/routes/auth")(app);
-require("./app/routes/privacyPolicy")(app);
-require("./app/routes/TermOfUse")(app);
-require("./app/routes/promoCode")(app);
-require("./app/routes/StyleTags")(app);
-require("./app/routes/LicenseAgreement")(app);
-require("./app/routes/ImageFilter")(app);
-require("./app/routes/FAQs")(app);
-require("./app/routes/folder")(app);
-require("./app/routes/ImageAspects")(app);
-require("./app/routes/GalleryImages")(app);
-require("./app/routes/GalleryProfile")(app);
-require("./app/routes/Images")(app);
+require("./routes/turorial.routes")(app);
+require("./routes/faqs.routes")(app);
+require("./routes/privacyPolicy")(app);
+require("./routes/ImgRatioSize")(app);
+require("./routes/UserType")(app);
+require("./routes/AdvanceStyling")(app);
+require("./routes/ManageUser")(app);
+require("./routes/subscription")(app);
+require("./routes/auth")(app);
+require("./routes/privacyPolicy")(app);
+require("./routes/TermOfUse")(app);
+require("./routes/promoCode")(app);
+require("./routes/StyleTags")(app);
+require("./routes/LicenseAgreement")(app);
+require("./routes/ImageFilter")(app);
+require("./routes/FAQs")(app);
+require("./routes/folder")(app);
+require("./routes/ImageAspects")(app);
+require("./routes/GalleryImages")(app);
+require("./routes/GalleryProfile")(app);
+require("./routes/Images")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8082;
