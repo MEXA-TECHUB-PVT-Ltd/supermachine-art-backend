@@ -6,6 +6,12 @@ module.exports = (sequelize, Sequelize) => {
 		answer: {
 			type: Sequelize.STRING
 		},
+		likes: {
+			type: Sequelize.INTEGER
+		},
+		dislikes: {
+			type: Sequelize.INTEGER
+		},
 	});
 	return FAQs;
 };

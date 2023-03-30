@@ -23,19 +23,23 @@ const ViewFAQs = async (req, res) => {
 //  -- 	 	LEFT JOIN "FAQsDislikes"
 //  -- 		ON "faqs".id = "FAQsDislikes"."faqsId"`
 
-		let query = `SELECT
-		"faqs".id,
-		"faqs".question,
-		"faqs".answer,
-		"FAQsDislikes".dislikes, 
-		"FAQsLikes".likes
-	  FROM "faqs" LEFT JOIN "FAQsLikes"
-		ON "faqs".id = "FAQsLikes"."faqsId"
-	 	LEFT JOIN "FAQsDislikes"
-		ON "faqs".id = "FAQsDislikes"."faqsId"`;
-		const [result] = await db.sequelize.query(query);
+	// 	let query = `SELECT
+	// 	"faqs".id,
+	// 	"faqs".question,
+	// 	"faqs".answer,
+	// 	"FAQsDislikes".dislikes, 
+	// 	"FAQsLikes".likes
+	//   FROM "faqs" LEFT JOIN "FAQsLikes"
+	// 	ON "faqs".id = "FAQsLikes"."faqsId"
+	//  	LEFT JOIN "FAQsDislikes"
+	// 	ON "faqs".id = "FAQsDislikes"."faqsId"`;
+	// 	const [result] = await db.sequelize.query(query);
 		// const [results] = await db.sequelize.query(query);
-		// const result = await FAQs.findAll();
+		const result = await FAQs.findAll({
+			order: [
+			  ["id", "ASC"],
+			],
+		  });
 		if (!result) {
 			res.json({
 				message: "No FAQs found",

@@ -4,7 +4,7 @@ const FAQ = db.FAQS;
 
 const AddFAQs = async (req, res) => {
     try {
-        const { question, answer } = req.body;
+        const { question, answer,likes,dislikes } = req.body;
         if (!question) {
             res.json({
                 message: "question is required",
@@ -19,6 +19,8 @@ const AddFAQs = async (req, res) => {
             const faq = {
                 question: question,
                 answer: answer,
+                likes:'0',
+                dislikes:'0',
             };
             FAQ.create(faq).then((result) => {
                 res.json({

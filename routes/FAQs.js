@@ -6,6 +6,8 @@ const addFAQs = require("../services/FAQs/addFAQs");
 const deleteFAQs = require("../services/FAQs/deleteFAQs");
 const viewASpecificFAQs = require("../services/FAQs/viewASpecificFAQs");
 const ViewFAQs = require("../services/FAQs/viewFAQs");
+const DislikeCheck = require("../services/FAQs/DislikeCheck");
+const LikeCheck = require("../services/FAQs/LikeCheck");
 
 // const upload = require("../middlewares/userPicsMulter")
 
@@ -18,6 +20,8 @@ router.put("/like_faqs", likeFAQs);
 router.put("/update_faqs", UpdateFAQs);
 router.get("/view_a_specific_faqs", viewASpecificFAQs);
 router.get("/view_all_faqs", ViewFAQs);
+router.get("/dislike_check", DislikeCheck);
+router.get("/like_check", LikeCheck);
 
 app.use("/faqs", router);
 };

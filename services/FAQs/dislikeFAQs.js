@@ -1,21 +1,22 @@
 const db = require("../../models");
-// const FAQs = db.FAQS;
+const FAQ = db.FAQS;
 const dislikes = db.dislikes;
 
 // const ObjectId = require("mongodb").ObjectId;
 
 const likeFAQs = async (req, res) => {
     try {
-        const { id, userID } = req.body;
+        const { FAQID, userID } = req.body;
         // const _id = new ObjectId(id)
         // const user_id = new ObjectId(userID)
         const matchLikes = await dislikes.findOne(
-            { where: { dislikes: userID } }
+            { where: { userID: userID, faqsId:FAQID } }
         );
         if (matchLikes===null) {
+            const results = await FAQ.increment('dislikes', { by: 1, where: { id: FAQID } });
             const data = {
-                faqsId:id,
-                dislikes: userID
+                faqsId:FAQID,
+                userID: userID
             };
             dislikes.create(data).then(result => {
                 res.json({
@@ -26,11 +27,12 @@ const likeFAQs = async (req, res) => {
 
             })
         } else {
-            const result = await dislikes.destroy({ where: { FAQsID:id, dislikes: userID } })
+            const results = await FAQ.increment('dislikes', { by: -1, where: { id: FAQID } });
+            const result = await dislikes.destroy({ where: { faqsId:FAQID, userID: userID } })
             res.json({
                 message: "Remove Dislike Successfully!",
                 status: true,
-                result,
+                result:matchLikes,
             });
         }
     } catch (err) {
