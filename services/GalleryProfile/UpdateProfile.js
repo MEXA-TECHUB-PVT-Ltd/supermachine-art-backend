@@ -4,13 +4,13 @@ const GalleryProfile = db.GalleryProfile;
 
 const UpdateProfile = async (req, res) => {
     try {
-        const { id, name, description , text} = req.body;
+        const { id, name, description } = req.body;
         let photo;
         if (req.file) {
             const { path } = req.file;
             photo = path;
         }else {
-            photo = text
+            photo = ''
         }
         const result = await GalleryProfile.update(
             {
@@ -18,7 +18,7 @@ const UpdateProfile = async (req, res) => {
                 image: photo,
                 description: description,
             },
-            { where: { id: id } }
+            { where: { userID: id } }
         )
         if (!result) {
             res.json({
@@ -26,23 +26,12 @@ const UpdateProfile = async (req, res) => {
                 status: false,
             });
         } else {
-            if(results.includes(0)){
-                res.json({
-                    message: "Gallery Not Exists!",
-                    status: false,
-                });    
-            }else {
-            const result = {
-                name: name,
-                image: photo,
-                description: description,
-            }
+            const users = await GalleryProfile.findOne({ where: { userID:id } });
             res.json({
-                message: " Gallery  Updated Successfully!",
+                message: "Gallery Profile Updated Successfully!",
                 status: true,
-                result,
+                result: users,
             });
-        }
         }
     } catch (err) {
         res.json({

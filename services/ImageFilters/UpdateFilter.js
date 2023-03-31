@@ -17,21 +17,19 @@ const UpdateFilter = async (req, res) => {
                 status: false,
             });
         } else {
-            if(results.includes(0)){
+            if (results.includes(0)) {
                 res.json({
                     message: "Image Filter not Exists!",
                     status: false,
-                });    
-            }else {
-            const result = {
-                name: name,
+                });
+            } else {
+                const users = await ImageFilters.findOne({ where: { id: id } });
+                res.json({
+                    message: "Image Filters Updated Successfully!",
+                    status: true,
+                    users,
+                });
             }
-            res.json({
-                message: "Image Filters Updated Successfully!",
-                status: true,
-                result,
-            });
-        }
         }
     } catch (err) {
         res.json({

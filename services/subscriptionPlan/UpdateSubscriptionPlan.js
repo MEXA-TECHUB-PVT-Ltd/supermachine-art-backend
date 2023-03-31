@@ -31,17 +31,7 @@ const UpdateSubscriptionPlan = async (req, res) => {
                     status: false,
                 });
             } else {
-                const result = {
-                    name: name,
-                    price: price,
-                    userType: userType,
-                    noOfUsers: noOfUsers,
-                    noOfImagesGenerates: noOfImagesGenerates,
-                    validity: validity,
-                    freeTrail: freeTrail,
-                    freeTrailDays: freeTrailDays,
-                    feature: feature,
-                }
+                const result = await Plan.findOne({where:{id:id}});
                 res.json({
                     message: "Plan  Updated Successfully!",
                     status: true,

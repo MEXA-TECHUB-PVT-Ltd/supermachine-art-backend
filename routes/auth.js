@@ -16,6 +16,8 @@ module.exports = app => {
     const VerifyEmail = require("../services/auth/VerifyEmail");
     const verifyOTP = require("../services/auth/verifyOTP");
     // const upload = require("../middlewares/userPicsMulter")
+    
+    const upload = require("../middlewares/FolderImagesMulter")
 
     let router = require("express").Router();
     // const formidable = require("express-formidable");
@@ -31,7 +33,7 @@ module.exports = app => {
     router.post("/sign_in_All", sign_in_All);
     router.post("/member_sign_up", member_Sign_up);
     router.put("/resetPassword", passwordReset);
-    router.put("/updateMember_Profile", updateMember_Profile);
+    router.put("/updateMember_Profile", upload.single("photo"), updateMember_Profile);
     router.post("/verifyEmail", VerifyEmail);
     router.post("/verifyOTP", verifyOTP)
     router.post("/newPassword", newPassword)
