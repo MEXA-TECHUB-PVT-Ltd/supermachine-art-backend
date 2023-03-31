@@ -4,12 +4,12 @@ const StyleTags = db.StyleTags;
 
 const UpdateStyleTags = async (req, res) => {
     try {
-        const { id, Tags } = req.body;
+        const { TagID,AdvanceStylingID, Tags } = req.body;
         const results = await StyleTags.update(
             {
                 Tags: Tags,
             },
-            { where: { id: id } }
+            { where: { id: TagID, AdvanceStylingID:AdvanceStylingID } }
         )
         if (!results) {
             res.json({

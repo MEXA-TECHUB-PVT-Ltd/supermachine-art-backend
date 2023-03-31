@@ -2,15 +2,15 @@ module.exports = (sequelize, Sequelize) => {
 	const User = sequelize.define("User", {
 		name: {
 			type: Sequelize.STRING,
-			required: true,
 		},
 		gender: {
 			type: Sequelize.STRING,
-			required: true,
 		},
 		phone: {
 			type: Sequelize.STRING,
-			required: true,
+		},
+		profileImage: {
+			type: Sequelize.STRING,
 		},
 		email: {
 			type: Sequelize.STRING,

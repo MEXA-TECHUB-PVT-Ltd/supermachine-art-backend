@@ -1,6 +1,7 @@
 // const Users = require("../../models/User");
 const db = require("../../models");
 const Folder = db.Folder;
+const Image = db.Images;
 
 const GetAllFolderUser = async (req, res) => {
 	try {
@@ -12,10 +13,12 @@ const GetAllFolderUser = async (req, res) => {
 				status: false,
 			});
 		} else {
+			const images = await Image.findAll({where:{userID: userID }});
 			res.json({
 				message: "Folder Data!",
 				status: true,
-				users
+				users,
+				images
 			});
 		}
 

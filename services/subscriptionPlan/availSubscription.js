@@ -31,13 +31,13 @@ const availSubscription = async (req, res) => {
             res.json({
                 message: "Subscription Failed",
                 status: false,
-                s
+                
             });
         } else {
             res.json({
                 message: "Subscribed Successfully!",
                 status: true,
-                plan,
+                data,
             });
         }
     } catch (err) {

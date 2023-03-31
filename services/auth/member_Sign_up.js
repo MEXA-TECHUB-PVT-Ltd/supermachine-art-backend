@@ -7,24 +7,6 @@ const member_Sign_up = async (req, res) => {
         const { name, gender, phone, email, password } = req.body;
         const type = 'member';
         const status = 'unBlock';
-        if (!name) {
-            res.json({
-                message: "Please Enter your Name as well",
-                status: false,
-            });
-        }
-        if (!gender) {
-            res.json({
-                message: "Please Select Gender",
-                status: false,
-            });
-        }
-        if (!phone) {
-            res.json({
-                message: "Please Enter your Phone No.",
-                status: false,
-            });
-        }
         if (!email) {
             res.json({
                 message: "Please Enter your Email",

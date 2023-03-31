@@ -5,39 +5,51 @@ const User = db.user;
 
 const updateMember_Profile = async (req, res) => {
     try {
-        const { id, email, password, type } = req.body;
-        const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(password, salt);
+        const {id, name, gender,phone , email} = req.body;
+
+
+        let photo;
+        if (req.file) {
+            const { path } = req.file;
+            photo = path;
+        } else {
+            photo = ''
+        }
         const results = await User.update(
             {
-                email: email,
-                password: hashPassword,
-                type: type,
-            },
-            { where: { id: id } })
+                name: name,
+                gender: gender,
+                phone:phone,
+                profileImage:photo,
+                email:email
+
+
+            }, {
+            where: {
+                id: id
+            }
+        })
         if (!results) {
             res.json({
                 message: "Profile Not Updated!",
                 status: false,
             });
         } else {
-            if(results.includes(0)){
+            if (results.includes(0)) {
                 res.json({
                     message: "Profile not Exists!",
                     status: false,
-                });    
-            }else {
-            const result = {
-                email: email,
-                password: hashPassword,
-                type: type,
+                });
+            } else {
+                const result = await User.findOne({
+                    where:{id:id}
+                })
+                res.json({
+                    message: "Profile  Updated Successfully!",
+                    status: true,
+                    result,
+                });
             }
-            res.json({
-                message: "Profile  Updated Successfully!",
-                status: true,
-                result,
-            });
-        }
         }
     } catch (err) {
         res.json({

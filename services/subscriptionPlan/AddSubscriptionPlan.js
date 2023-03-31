@@ -63,7 +63,7 @@ const AddSubscriptionPlan = async (req, res) => {
                             res.json({
                                 message: "Subscription Plan Added Successfully!",
                                 status: true,
-                                plan,
+                                result,
                             });
 
                         })
