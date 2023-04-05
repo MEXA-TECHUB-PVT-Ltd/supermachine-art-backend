@@ -1,17 +1,4 @@
-// module.exports = (sequelize, Sequelize) => {
-// 	const AdvanceStyling = sequelize.define("AdvanceStyling", {
-// 	styleType: {
-// 		type: Sequelize.STRING,
-// 		required: true,
-// 	},
-// });
-// return AdvanceStyling
-// };
-
 const sql = require("./db");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-
 const AdvanceStyling = function (AdvanceStyling) {
 	this.styleType = AdvanceStyling.styleType;
 };

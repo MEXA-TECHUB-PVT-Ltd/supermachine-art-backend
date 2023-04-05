@@ -1,6 +1,6 @@
-const Admin = require("../models/admin");
+const User = require("../models/user");
 
-// Create and Save a new Admin
+// Create and Save a new User
 exports.SignUp = (req, res) => {
   if (!req.body) {
     res.json({
@@ -8,7 +8,7 @@ exports.SignUp = (req, res) => {
       status: false,
      });
   }  
-  Admin.create( req, res);
+  User.create( req, res);
 };
 exports.login = (req, res) => {
   if (!req.body) {
@@ -17,7 +17,7 @@ exports.login = (req, res) => {
       status: false,
      });
   }  
-  Admin.login( req, res);
+  User.login( req, res);
 };
 
 exports.resetPassword = (req, res) => {
@@ -27,8 +27,19 @@ exports.resetPassword = (req, res) => {
       status: false,
      });
   }  
-  Admin.resetPassword( req, res);
+  User.resetPassword( req, res);
 };
+
+exports.updateProfile = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  User.updateProfile( req, res);
+};
+
 exports.VerifyEmail = (req, res) => {
   if (!req.body) {
     res.json({
@@ -36,8 +47,9 @@ exports.VerifyEmail = (req, res) => {
       status: false,
      });
   }  
-  Admin.VerifyEmail( req, res);
+  User.VerifyEmail( req, res);
 };
+
 exports.newPassword = (req, res) => {
   if (!req.body) {
     res.json({

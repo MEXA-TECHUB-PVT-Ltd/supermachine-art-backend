@@ -1,22 +1,3 @@
-// module.exports = (sequelize, Sequelize) => {
-// 	const Folder = sequelize.define("Folders", {
-// 		userID: {
-// 			type: Sequelize.INTEGER,
-// 			required: true,
-// 		},
-// 		name: {
-// 			type: Sequelize.STRING,
-// 			required: true,
-// 		},
-// 		status: {
-// 			type: Sequelize.STRING,
-// 			required: true,
-// 		},
-// 	});
-
-// 	return Folder;
-// };
-
 const sql = require("./db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
