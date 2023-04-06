@@ -1,17 +1,3 @@
-// module.exports = {
-//   HOST: "localhost",
-//   USER: "postgres",
-//   PASSWORD: "1234",
-//   DB: "postgres",
-//   dialect: "postgres",
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle: 10000
-//   }
-// };
-
 const { Pool } = require('pg');
 require('dotenv').config();
 const fs = require('fs');
@@ -23,7 +9,7 @@ const sql = new Pool ({
   port:'5432',
   user: "postgres", 
   password: "1234",
-  database: "data"
+  database: "postgres"
   //    max : process.env.MAX
 });
 

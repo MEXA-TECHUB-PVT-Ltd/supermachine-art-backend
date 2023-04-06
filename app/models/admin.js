@@ -35,7 +35,9 @@ Admin.create = async (req, res) => {
                     err
                 });
             } else {
-                sql.query(`SELECT id FROM public.admins WHERE email = '${req.body.email}'`, (err, result) => {
+                sql.query(`SELECT id FROM public.admins WHERE
+                 email = $1`,
+                 [req.body.email], (err, result) => {
                     if (err) {
                         res.json({
                             message: "Try Again",
@@ -52,7 +54,8 @@ Admin.create = async (req, res) => {
                         } else {
                             if (result.rows.length == 0) {
                                 sql.query(`INSERT INTO admins (id, email , password, createdAt, updatedAt )
-                            VALUES (DEFAULT, '${req.body.email}'  ,  '${hashpassword}', 'NOW()', 'NOW()') RETURNING *`, (err, result) => {
+                            VALUES (DEFAULT, $1  ,  $2, 'NOW()', 'NOW()')
+                             RETURNING *`, [req.body.email,hashpassword],(err, result) => {
                                     if (err) {
                                         res.json({
                                             message: "Try Again!",
@@ -78,7 +81,7 @@ Admin.create = async (req, res) => {
 }
 
 Admin.login = async function (req, res) {
-    sql.query(`SELECT * FROM admins WHERE email = '${req.body.email}'`, (err, result) => {
+    sql.query(`SELECT * FROM admins WHERE email = $1`,[req.body.email], (err, result) => {
         if (err) {
             console.log(err);
             res.json({
@@ -124,7 +127,7 @@ Admin.resetPassword = async function (req, res) {
     const { email, password, newPassword } = req.body;
     // const hashPassword = await bcrypt.hash(newPassword, salt);
     // const oldpassword = await bcrypt.hash(password, salt);
-    sql.query(`SELECT * FROM admins WHERE email = '${email}'`, async (err, results) => {
+    sql.query(`SELECT * FROM admins WHERE email = $1`,[email], async (err, results) => {
         if (err) {
             console.log(err);
             res.json({
@@ -136,14 +139,15 @@ Admin.resetPassword = async function (req, res) {
         else {
             if (results.rows.length == 0) {
                 res.json({
-                    message: "User Not Found",
+                    message: "Admin Not Found",
                     status: false,
                 });
             } else {
                 if (bcrypt.compareSync(req.body.password, results.rows[0].password)) {
                     const salt = await bcrypt.genSalt(10);
                     const hashPassword = await bcrypt.hash(newPassword, salt);
-                    sql.query(`UPDATE admins SET password = '${hashPassword}' WHERE id = '${results.rows[0].id}'`, (err, result) => {
+                    sql.query(`UPDATE admins SET password = $1 WHERE
+                     id = $2`,[hashPassword, results.rows[0].id], (err, result) => {
                         if (err) {
                             console.log(err);
                             res.json({
