@@ -1,4 +1,4 @@
-const sql = require("./db");
+const {sql} = require("../config/db.config");
 
 const ImageSizeRatio = function (ImageSizeRatio) {
 	this.imageSize = ImageSizeRatio.imageSize;

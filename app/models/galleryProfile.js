@@ -4,7 +4,7 @@
 // 	image: {
 // 	description: {
 
-const sql = require("./db");
+const {sql} = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 

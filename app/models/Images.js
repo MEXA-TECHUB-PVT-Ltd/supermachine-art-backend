@@ -1,4 +1,4 @@
-const sql = require("./db");
+const {sql} = require("../config/db.config");
 const Images = function (Images) {
     this.userID = Images.userID;
     this.FolderID = Images.FolderID

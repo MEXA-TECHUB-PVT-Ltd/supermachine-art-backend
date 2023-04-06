@@ -4,6 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser"); /* deprecated */
 const client = require("./app/models/db");
 const app = express();
+const dbConfig = require('./app/config/db.config')
+require('dotenv').config()
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -46,24 +48,25 @@ require("./app/routers/FAQs")(app);
 // require("./app/routers/GalleryImages")(app);
 require("./app/routers/GalleryProfile")(app);
 require("./app/routers/Images")(app);
-client.connect();
 
-(async () => {
-  client.on('connection', (err, connection) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log('connected to postgres')
-    }
-  })
-})();
+// dbConfig.connect();
 
-client.on('error', (err) => {
-  console.log(err);
-})
-client.on('end', (err) => {
-  console.log("end connection");
-})
+// (async () => {
+//   dbConfig.on('connection', (err, connection) => {
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       console.log('connected to postgres')
+//     }
+//   })
+// })();
+
+// dbConfig.on('error', (err) => {
+//   console.log(err);
+// })
+// dbConfig.on('end', (err) => {
+//   console.log("end connection");
+// })
 
 
 

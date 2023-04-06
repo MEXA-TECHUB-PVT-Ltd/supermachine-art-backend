@@ -7,7 +7,7 @@
     //         type: Sequelize.INTEGER,
 
 
-    const sql = require("./db");
+    const {sql} = require("../config/db.config");
     
     const subscriptionPlanImageSize = function (subscriptionPlanImageSize) {
         this.SubscriptionPlanID = subscriptionPlanImageSize.SubscriptionPlanID

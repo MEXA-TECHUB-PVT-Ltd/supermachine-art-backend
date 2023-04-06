@@ -9,7 +9,7 @@
 // 		status: {
 // 			type: Sequelize.STRING,
 
-const pool = require("./db");
+const {sql} = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");;
@@ -36,7 +36,7 @@ const sendOTPVerificationEmail = async (email, res) => {
                 status: false,
             });
         } else {
-            pool.query(`CREATE TABLE IF NOT EXISTS public.otp (
+            sql.query(`CREATE TABLE IF NOT EXISTS public.otp (
             id SERIAL,
             email text,
             otp text,
@@ -55,11 +55,11 @@ const sendOTPVerificationEmail = async (email, res) => {
                     const otp = `${Math.floor(1000 + Math.random() * 9000)}`
                     console.log(otp)
                     const found_email_query = 'SELECT * FROM otp WHERE email = $1'
-                    const foundStoredOtp = await pool.query(found_email_query, [email])
+                    const foundStoredOtp = await sql.query(found_email_query, [email])
 
                     if (foundStoredOtp.rowCount == 0) {
                         const query = 'INSERT INTO otp (id, email , otp, status, createdAt, updatedAt) VALUES (DEFAULT, $1 , $2, $3, NOW(), NOW()) RETURNING*'
-                        result = await pool.query(query, [email, otp, 'pending'])
+                        result = await sql.query(query, [email, otp, 'pending'])
                         result = result.rows[0]
                     }
 
@@ -69,7 +69,7 @@ const sendOTPVerificationEmail = async (email, res) => {
                             otp ? otp : null,
                             email ? email : null
                         ]
-                        result = await pool.query(query, values);
+                        result = await sql.query(query, values);
                         result = result.rows[0]
                     }
 
@@ -114,13 +114,13 @@ otp.VerifyEmail  = async (req, res) => {
     try {
         const email = req.body.email;
         const found_email_query = 'SELECT * FROM "user"  WHERE email = $1'
-        const foundResult = await pool.query(found_email_query, [email])
+        const foundResult = await sql.query(found_email_query, [email])
         if (foundResult.rowCount > 0) {
             sendOTPVerificationEmail(foundResult.rows[0].email, res)
         }
         else {
             const found_email_query = 'SELECT * FROM public.admins WHERE email = $1'
-            const foundResult = await pool.query(found_email_query, [email])
+            const foundResult = await sql.query(found_email_query, [email])
             if (foundResult) {
                 sendOTPVerificationEmail(foundEmail.rows[0].email, res)
             }
@@ -146,14 +146,14 @@ otp.verifyOTP = async (req,res)=>{
         const email = req.body.email;
         const otp = req.body.otp;
         const found_email_query = 'SELECT * FROM otp WHERE email = $1 AND otp = $2'
-        const result = await pool.query(found_email_query, [email , otp])
+        const result = await sql.query(found_email_query, [email , otp])
         if(result.rowCount>0){
             let query = 'UPDATE otp SET status = $1  WHERE email = $2 RETURNING*'
             let values = [
                 'verified',
                 email ? email : null
             ]
-            let updateResult = await pool.query(query, values);
+            let updateResult = await sql.query(query, values);
             updateResult = updateResult.rows[0]
 
             res.json({

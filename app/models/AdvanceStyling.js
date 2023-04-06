@@ -1,4 +1,6 @@
-const sql = require("./db");
+// const sql = require("./db");
+const {sql} = require("../config/db.config");
+
 const AdvanceStyling = function (AdvanceStyling) {
 	this.styleType = AdvanceStyling.styleType;
 };
