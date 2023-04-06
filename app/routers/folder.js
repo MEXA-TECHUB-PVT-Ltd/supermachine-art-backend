@@ -14,5 +14,15 @@ module.exports = app => {
     router.get("/view_all_public_folders/:id", Folder.getAllPublicFolder);
     router.get("/view_all_private_folders/:id", Folder.getAllPrivateFolder);
 
+
+    // router.post("/add_image", Images.AddImages);
+    // router.put("/update_folder_sstatus", Images.UpdateFolderStatus);
+    // router.get("/view_all_images_in_folder/:id", Images.GetAllImagesInFolder);
+    // router.get("/view_user_all_images/:id", Images.ViewUserAllImages);
+
+    // router.post("/add_gallery_images", upload.single("image"), GalleryImages.AddGalleryImages);
+
+
+
     app.use("/folder", router);
 };

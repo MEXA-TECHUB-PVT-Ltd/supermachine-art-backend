@@ -1,13 +1,3 @@
-// module.exports = (sequelize, Sequelize) => {
-// 	const UserType = sequelize.define("UserType", {
-// 		type: {
-// 			type: Sequelize.STRING,
-// 			required: true,
-// 		},
-// 	});
-// 	return UserType;
-// };
-
 const sql = require("./db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");

@@ -1,57 +1,61 @@
-const Admin = require("../models/admin");
+const promoCode = require("../models/promoCode");
+const usePromoCode = require("../models/usePromoCode");
 
-// Create and Save a new Admin
-exports.SignUp = (req, res) => {
+// Create and Save a new Advance Styling
+exports.create = (req, res) => {
   if (!req.body) {
     res.json({
       message: "Content can not be empty!",
       status: false,
      });
   }  
-  Admin.create( req, res);
+  promoCode.create( req, res);
 };
-exports.login = (req, res) => {
+exports.viewAll = (req, res) => {
   if (!req.body) {
     res.json({
       message: "Content can not be empty!",
       status: false,
      });
   }  
-  Admin.login( req, res);
+  promoCode.viewAll( req, res);
+};
+exports.viewSpecific = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  promoCode.viewSpecific( req, res);
 };
 
-exports.resetPassword = (req, res) => {
+exports.delete = (req, res) => {
   if (!req.body) {
     res.json({
       message: "Content can not be empty!",
       status: false,
      });
   }  
-  Admin.resetPassword( req, res);
+  promoCode.delete( req, res);
 };
-exports.VerifyEmail = (req, res) => {
+exports.update = (req, res) => {
   if (!req.body) {
     res.json({
       message: "Content can not be empty!",
       status: false,
      });
   }  
-  Admin.VerifyEmail( req, res);
+  promoCode.update( req, res);
 };
-exports.newPassword = (req, res) => {
+
+exports.use = (req, res) => {
   if (!req.body) {
     res.json({
       message: "Content can not be empty!",
       status: false,
      });
   }  
-  Admin.newPassword( req, res);
-};exports.verifyOTP = (req, res) => {
-  if (!req.body) {
-    res.json({
-      message: "Content can not be empty!",
-      status: false,
-     });
-  }  
-  Admin.verifyOTP( req, res);
+  usePromoCode.use( req, res);
 };
+

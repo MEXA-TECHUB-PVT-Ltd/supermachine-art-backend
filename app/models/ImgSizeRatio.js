@@ -1,17 +1,4 @@
-// module.exports = (sequelize, Sequelize) => {
-// 	const ImageSizeRatio = sequelize.define("ImageSizeRatio", {
-// 	imageSize: {
-// 		type: Sequelize.STRING,
-// 		required: true,
-// 	},
-// });
-
-// return ImageSizeRatio
-// };
-
 const sql = require("./db");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
 const ImageSizeRatio = function (ImageSizeRatio) {
 	this.imageSize = ImageSizeRatio.imageSize;

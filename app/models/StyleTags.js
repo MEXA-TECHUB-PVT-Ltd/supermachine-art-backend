@@ -1,18 +1,3 @@
-// module.exports = (sequelize, Sequelize) => {
-// 	const StyleTags = sequelize.define("StyleTags", {
-
-// 		advancestylingid: {
-// 			type: Sequelize.INTEGER,
-// 			req: true,
-// 		},
-// 		Tags: {
-// 			type: Sequelize.STRING,
-// 			req: true,
-// 		},
-// 	});
-// 	return StyleTags;
-// };
-
 const sql = require("./db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -122,22 +107,18 @@ StyleTags.viewAll = (req, res) => {
 }
 
 StyleTags.update = (req, res) => {
-    // if (!req.body.advancestylingid || req.body.advancestylingid === null) {
-    //     res.json({
-    //         message: "Please Enter your advancestylingid",
-    //         status: false,
-    //     });
-    // } else 
-    const id = req.body.TagID;
-    if (req.body.Tags === '') {
+    const id = req.body.id;
+    console.log(id);
+    if (id === '') {
         res.json({
-            message: "Please Enter your Tags",
+            message: "Please Specify Tags",
             status: false,
         });
     } else {
-		sql.query(`UPDATE "StyleTags" SET Tags = '${req.body.Tags}' WHERE id = ${req.body.TagID};`, async (err, result) => {
-            if (err) {
-                console.log("err");
+            sql.query(`UPDATE "StyleTags" SET tags = $1 WHERE id = $2;`,
+			[req.body.tags, id], async (err, result) => {
+
+        if (err) {
                 console.log(err);
                 res.json({
                     message: "Try Again",
