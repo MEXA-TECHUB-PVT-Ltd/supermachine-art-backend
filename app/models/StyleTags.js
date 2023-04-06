@@ -43,7 +43,8 @@ StyleTags.create = async (req, res) => {
                 });
             } else {
                 sql.query(`INSERT INTO public."StyleTags" (id, advancestylingid , Tags, createdAt ,updatedAt )
-                            VALUES (DEFAULT, '${req.body.advancestylingid}'  ,  '${req.body.Tags}', 'NOW()', 'NOW()') RETURNING * `, (err, result) => {
+                            VALUES (DEFAULT, $1,  $2, 'NOW()', 'NOW()') 
+                            RETURNING * `, [req.body.advancestylingid, req.body.Tags] , (err, result) => {
                     if (err) {
                         console.log(err);
                         res.json({
@@ -68,7 +69,7 @@ StyleTags.create = async (req, res) => {
 }
 
 StyleTags.viewSpecific = (req, res) => {
-    sql.query(`SELECT * FROM public."StyleTags" WHERE id = ${req.body.id};`, (err, result) => {
+    sql.query(`SELECT * FROM public."StyleTags" WHERE id = $1;`,[req.body.id] ,(err, result) => {
         if (err) {
             console.log(err);
             res.json({
@@ -87,7 +88,8 @@ StyleTags.viewSpecific = (req, res) => {
 }
 
 StyleTags.viewAll = (req, res) => {
-    sql.query(`SELECT * FROM public."StyleTags" WHERE AdvanceStylingID = '${req.body.AdvanceStylingID}';`, (err, result) => {
+    sql.query(`SELECT * FROM public."StyleTags" WHERE AdvanceStylingID = $1;`
+    ,[req.body.AdvanceStylingID], (err, result) => {
         if (err) {
             console.log(err);
             res.json({
@@ -127,7 +129,8 @@ StyleTags.update = (req, res) => {
                 });
             } else {
                 if (result.rowCount === 1) {
-                    const data = await sql.query(`select * FROM public."StyleTags" where id = '${req.body.id}'`);
+                    const data = await sql.query(`select * FROM public."StyleTags" where 
+                    id = $1`, [req.body.id]);
                     res.json({
                         message: "Style Tag Updated Successfully!",
                         status: true,
@@ -145,9 +148,9 @@ StyleTags.update = (req, res) => {
 }
 
 StyleTags.delete = async (req, res) => {
-    const data = await sql.query(`select * from public."StyleTags" where id = ${req.params.id}`);
+    const data = await sql.query(`select * from public."StyleTags" where id = $1`, [req.params.id]);
     if (data.rows.length === 1) {
-        sql.query(`DELETE FROM public."StyleTags" WHERE id = ${req.params.id};`, (err, result) => {
+        sql.query(`DELETE FROM public."StyleTags" WHERE id = $1;`,[req.params.id], (err, result) => {
             if (err) {
                 res.json({
                     message: "Try Again",

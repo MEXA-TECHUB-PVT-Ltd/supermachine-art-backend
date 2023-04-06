@@ -26,7 +26,8 @@ AdvanceStyling.create = async (req, res) => {
 				});
 			} else {
 				sql.query(`INSERT INTO AdvanceStylings (id, styleType , createdAt ,updatedAt )
-                            VALUES (DEFAULT, '${req.body.styleType}'  , 'NOW()', 'NOW()');`, (err, result) => {
+                            VALUES (DEFAULT, $1, 'NOW()', 'NOW()') RETURNING *;`,
+							[req.body.styleType], (err, result) => {
 					if (err) {
 						res.json({
 							message: "Try Again",
@@ -38,10 +39,7 @@ AdvanceStyling.create = async (req, res) => {
 						res.json({
 							message: "style Type Added Successfully!",
 							status: true,
-							result: {
-								id: result.insertId,
-								styleType: req.body.styleType,
-							}
+							result: result.rows
 						});
 					}
 
@@ -53,7 +51,8 @@ AdvanceStyling.create = async (req, res) => {
 }
 
 AdvanceStyling.viewSpecific = (req, res) => {
-	sql.query(`SELECT * FROM AdvanceStylings WHERE id = ${req.params.id};`, (err, result) => {
+	sql.query(`SELECT * FROM AdvanceStylings WHERE id = $1;`,
+	[req.params.id] ,(err, result) => {
 		if (err) {
 			res.json({
 				message: "Try Again",
@@ -96,7 +95,8 @@ AdvanceStyling.update = (req, res) => {
 			status: false,
 		});
 	} else {
-		sql.query(`UPDATE AdvanceStylings SET styleType = '${req.body.styleType}' WHERE id = ${req.body.id};`, (err, result) => {
+		sql.query(`UPDATE AdvanceStylings SET styleType = $1 , updatedat = 'NOW()'
+		WHERE id = $2 RETURNING *;`,[req.body.styleType,req.body.id ], (err, result) => {
 			if (err) {
 				res.json({
 					message: "Try Again",
@@ -107,10 +107,7 @@ AdvanceStyling.update = (req, res) => {
 				res.json({
 					message: " style Type Updated Successfully!",
 					status: true,
-					result: {
-						id: req.body.id,
-						styleType: req.body.styleType,
-					}
+					result: result.rows
 				});
 			}
 		});
@@ -121,7 +118,7 @@ AdvanceStyling.delete = async (req, res) => {
 	const data = await sql.query(`select * from AdvanceStylings where id = ${req.params.id}`);
 	console.log(data.rows.length);
 	if (data.rows.length === 1) {
-		sql.query(`DELETE FROM AdvanceStylings WHERE id = ${req.params.id};`, (err, result) => {
+		sql.query(`DELETE FROM AdvanceStylings WHERE id = $1;`,[req.params.id], (err, result) => {
 			if (err) {
 				res.json({
 					message: "Try Again",

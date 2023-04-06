@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS public.ImageFilters (
 CREATE TABLE IF NOT EXISTS public.Images (
                 id SERIAL NOT NULL,
                 userID SERIAL NOT NULL ,
-                FolderID text,
+                FolderID SERIAL,
                 name text,
                 FolderStatus text,
                 image text ,
@@ -216,6 +216,22 @@ CREATE TABLE IF NOT EXISTS public.UsersSubscriptions (
 CREATE TABLE IF NOT EXISTS public.UserTypes (
         id SERIAL,
         type text NOT NULL,
+        createdAt timestamp NOT NULL,
+        updatedAt timestamp ,
+        PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS public.Favorite (
+        id SERIAL,
+        userID SERIAL NOT NULL,
+        artID SERIAL NOT NULL,
+        createdAt timestamp NOT NULL DEFAULT NOW(),
+        updatedAt timestamp DEFAULT NOW(),
+        PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS public.favoriteArtist (
+        id SERIAL,
+        userID SERIAL NOT NULL,
+        FavUserId SERIAL NOT NULL,
         createdAt timestamp NOT NULL,
         updatedAt timestamp ,
         PRIMARY KEY (id));

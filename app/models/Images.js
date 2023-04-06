@@ -12,7 +12,7 @@ Images.AddImages = async (req, res) => {
     sql.query(`CREATE TABLE IF NOT EXISTS public.Images (
                 id SERIAL NOT NULL,
                 userID SERIAL NOT NULL ,
-                FolderID text,
+                FolderID SERIAL,
                 name text,
                 FolderStatus text,
                 image text ,

@@ -34,7 +34,8 @@ termOfUse.create = async (req, res) => {
 				});
 			} else {
 				sql.query(`INSERT INTO termOfUses (id, title , content, createdAt ,updatedAt )
-                            VALUES (DEFAULT, '${req.body.title}'  ,  '${req.body.content}', 'NOW()', 'NOW()') RETURNING * `, (err, result) => {
+                            VALUES (DEFAULT, $1  ,  $2, 'NOW()', 'NOW()') 
+							RETURNING * `,[req.body.title, req.body.content], (err, result) => {
 					if (err) {
 						res.json({
 							message: "Try Again",
@@ -58,7 +59,7 @@ termOfUse.create = async (req, res) => {
 }
 
 termOfUse.viewSpecific = (req, res) => {
-	sql.query(`SELECT * FROM termOfUses WHERE id = ${req.body.id};`, (err, result) => {
+	sql.query(`SELECT * FROM termOfUses WHERE id = $1;`,[req.body.id], (err, result) => {
 		if (err) {
 			res.json({
 				message: "Try Again",
@@ -106,7 +107,8 @@ termOfUse.update = (req, res) => {
 			status: false,
 		});
 	} else {
-		sql.query(`UPDATE termOfUses SET title = '${req.body.title}', content = '${req.body.content}' WHERE id = ${req.body.id};`, async (err, result) => {
+		sql.query(`UPDATE termOfUses SET title = $1, content = $2 WHERE
+		 id = $3;`, [req.body.title,req.body.content, req.body.id] ,async (err, result) => {
 			if (err) {
 				res.json({
 					message: "Try Again",
@@ -135,7 +137,7 @@ termOfUse.update = (req, res) => {
 termOfUse.delete = async (req, res) => {
 	const data = await sql.query(`select * from termOfUses where id = ${req.params.id}`);
 	if (data.rows.length === 1) {
-		sql.query(`DELETE FROM termOfUses WHERE id = ${req.params.id};`, (err, result) => {
+		sql.query(`DELETE FROM termOfUses WHERE id = $1;`,[req.params.id], (err, result) => {
 			if (err) {
 				res.json({
 					message: "Try Again",
