@@ -57,7 +57,7 @@ exports.newPassword = (req, res) => {
       status: false,
      });
   }  
-  Admin.newPassword( req, res);
+  User.newPassword( req, res);
 };exports.verifyOTP = (req, res) => {
   if (!req.body) {
     res.json({

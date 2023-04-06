@@ -74,7 +74,7 @@ UsersSubscriptions.AvailSubscription = async (req, res) => {
 UsersSubscriptions.ViewSubscriptionPlanSpecificUser = (req, res) => {
     sql.query(`SELECT "userssubscriptions".id, "userssubscriptions".name AS "Uname"
     ,"userssubscriptions".email, "userssubscriptions"."createdat" as "AvailDate", "subscriptionplan".name,
-      "subscriptionplan".validity, "subscriptionplan".freeTrail,"subscriptionplan".freetraildays,   "subscriptionplan
+      "subscriptionplan".validity, "subscriptionplan".freeTrail,"subscriptionplan".freetraildays,
        "subscriptionplan".feature ,"subscriptionplan".noofimagesgenerates 
       FROM "userssubscriptions" 
       JOIN "subscriptionplan" ON "userssubscriptions"."subscriptionid" = "subscriptionplan"."id" AND "userssubscriptions"."userid" = $1`

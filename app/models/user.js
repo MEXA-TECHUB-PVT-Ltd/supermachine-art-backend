@@ -461,4 +461,42 @@ User.delete = async (req, res) => {
 		});
 	}
 }
+
+User.newPassword = async (req,res)=>{
+    try{
+        const email = req.body.email;
+        const found_email_query = 'SELECT * FROM otp WHERE email = $1 AND status = $2'
+        const result = await sql.query(found_email_query, [email , 'verified'])
+        if(result.rowCount>0){
+            const salt = await bcrypt.genSalt(10);
+            let hashpassword = await bcrypt.hash(req.body.password, salt);    
+            let query = `UPDATE "user" SET password = $1  WHERE email = $2 RETURNING*`
+            let values = [hashpassword,email]
+            let updateResult = await sql.query(query, values);
+            updateResult = updateResult.rows[0];
+			console.log(result.rows);
+			sql.query(`DELETE FROM otp WHERE id = $1;`, [result.rows[0].id], (err, result) => {});
+            res.json({
+                message: "Password changed",
+                status: true,
+                result: updateResult
+            })
+        }
+        else{
+            res.json({
+                message : "Email Not Found ",
+                status:false
+            })
+        }
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({
+          message: `Internal server error occurred`,
+          success:false,
+        });
+      }
+}
+
+
 module.exports = User;

@@ -173,14 +173,39 @@ Admin.resetPassword = async function (req, res) {
     });
 
 }
-Admin.forgetPassword = async function (req, res) {
+Admin.newPassword = async (req,res)=>{
+    try{
+        const email = req.body.email;
+        const found_email_query = 'SELECT * FROM otp WHERE email = $1 AND status = $2'
+        const result = await sql.query(found_email_query, [email , 'verified'])
+        if(result.rowCount>0){
+            const salt = await bcrypt.genSalt(10);
+            let hashpassword = await bcrypt.hash(req.body.password, salt);    
+            let query = 'UPDATE public.admins SET password = $1  WHERE email = $2 RETURNING*'
+            let values = [hashpassword,email]
+            let updateResult = await sql.query(query, values);
+            updateResult = updateResult.rows[0]
 
-}
-Admin.verifyOTP = async function (req, res) {
-
-}
-Admin.newPassword = async function (req, res) {
-
+            res.json({
+                message: "Password changed",
+                status: true,
+                result: updateResult
+            })
+        }
+        else{
+            res.json({
+                message : "Email Not Found ",
+                status:false
+            })
+        }
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({
+          message: `Internal server error occurred`,
+          success:false,
+        });
+      }
 }
 
 module.exports = Admin;
