@@ -12,7 +12,7 @@ module.exports = app => {
     router.put("/updateMember_Profile", upload.single("photo"), User.updateProfile);
     // router.post("/verifyEmail", User.VerifyEmail);
     // router.post("/verifyOTP", User.verifyOTP)
-    // router.post("/newPassword", User.newPassword)
+    router.post("/user_newPassword", User.newPassword)
 
     app.use('/auth', router);
   };

@@ -74,7 +74,7 @@ Folder.GetAFolder = (req, res) => {
 }
 
 Folder.viewUserAllFolders = (req, res) => {
-	sql.query(`SELECT * FROM Folder WHERE id = '${req.params.id}'`, (err, result) => {
+	sql.query(`SELECT * FROM Folder WHERE userid = '${req.params.id}'`, (err, result) => {
 		if (err) {
 			res.json({
 				message: "Try Again",

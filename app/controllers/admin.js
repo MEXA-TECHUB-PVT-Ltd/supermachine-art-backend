@@ -1,4 +1,5 @@
 const Admin = require("../models/admin");
+const otp = require("../models/otp");
 
 // Create and Save a new Admin
 exports.SignUp = (req, res) => {
@@ -36,7 +37,7 @@ exports.VerifyEmail = (req, res) => {
       status: false,
      });
   }  
-  Admin.VerifyEmail( req, res);
+  otp.VerifyEmail( req, res);
 };
 exports.newPassword = (req, res) => {
   if (!req.body) {
@@ -46,12 +47,13 @@ exports.newPassword = (req, res) => {
      });
   }  
   Admin.newPassword( req, res);
-};exports.verifyOTP = (req, res) => {
+};
+exports.verifyOTP = (req, res) => {
   if (!req.body) {
     res.json({
       message: "Content can not be empty!",
       status: false,
      });
   }  
-  Admin.verifyOTP( req, res);
+  otp.verifyOTP( req, res);
 };
