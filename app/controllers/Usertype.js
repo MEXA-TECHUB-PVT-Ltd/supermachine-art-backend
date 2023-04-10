@@ -1,4 +1,4 @@
-const Usertype = require("../models/Usertype");
+const Usertype = require("../models/userstypes");
 
 // Create and Save a new Advance Styling
 exports.create = (req, res) => {
