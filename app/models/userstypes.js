@@ -1,12 +1,10 @@
 const {sql} = require("../config/db.config");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
-const UserType = function (UserType) {
+const userstypes = function (UserType) {
 	this.type = UserType.type;
 };
 
-UserType.create = async (req, res) => {
+userstypes.create = async (req, res) => {
 	if (!req.body.type || req.body.type === '') {
 		res.json({
 			message: "Please Enter your User Type",
@@ -50,7 +48,7 @@ UserType.create = async (req, res) => {
 	}
 }
 
-UserType.viewSpecific = (req, res) => {
+userstypes.viewSpecific = (req, res) => {
 	sql.query(`SELECT * FROM UserTypes WHERE id = ${req.body.id};`, (err, result) => {
 		if (err) {
 			res.json({
@@ -68,7 +66,7 @@ UserType.viewSpecific = (req, res) => {
 	});
 }
 
-UserType.viewAll = (req, res) => {
+userstypes.viewAll = (req, res) => {
 	sql.query(`SELECT * FROM UserTypes;`, (err, result) => {
 		if (err) {
 			res.json({
@@ -87,7 +85,7 @@ UserType.viewAll = (req, res) => {
 
 }
 
-UserType.update = (req, res) => {
+userstypes.update = (req, res) => {
 	if (!req.body.type || req.body.type === '') {
 		res.json({
 			message: "Please Enter your User Type",
@@ -122,7 +120,7 @@ UserType.update = (req, res) => {
 	}
 }
 
-UserType.delete = async (req, res) => {
+userstypes.delete = async (req, res) => {
 	const data = await sql.query(`select * from UserTypes where id = ${req.params.id}`);
 	console.log(data.rows.length);
 	if (data.rows.length === 1) {
@@ -149,4 +147,4 @@ UserType.delete = async (req, res) => {
 		});
 	}
 }
-module.exports = UserType;
+module.exports = userstypes;
