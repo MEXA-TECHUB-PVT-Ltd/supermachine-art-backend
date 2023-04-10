@@ -8,7 +8,7 @@ const {sql} = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const GalleryProfile = function (GalleryProfile) {
+const galleryprofiles = function (GalleryProfile) {
 	this.userID = GalleryProfile.userID;
 	this.name = GalleryProfile.name;
 	this.image = GalleryProfile.image
@@ -19,7 +19,7 @@ const GalleryProfile = function (GalleryProfile) {
 //         ON UPDATE NO ACTION
 //         ON DELETE CASCADE
 //         NOT VALID
-GalleryProfile.create = async (req, res) => {
+galleryprofiles.create = async (req, res) => {
 	sql.query(`CREATE TABLE IF NOT EXISTS public.GalleryProfile (
         id SERIAL NOT NULL,
 		userID SERIAL NOT NULL,
@@ -107,7 +107,7 @@ GalleryProfile.create = async (req, res) => {
 
 
 
-GalleryProfile.ViewMyProfile = (req, res) => {
+galleryprofiles.ViewMyProfile = (req, res) => {
 	sql.query(`SELECT * FROM "galleryprofile" WHERE ( id = $1)`, [req.params.id], (err, result) => {
 		if (err) {
 			console.log(err);
@@ -126,7 +126,7 @@ GalleryProfile.ViewMyProfile = (req, res) => {
 	});
 }
 
-GalleryProfile.getAllPublicProfiles = (req, res) => {
+galleryprofiles.getAllPublicProfiles = (req, res) => {
 	sql.query(`SELECT * FROM "galleryprofile";`, (err, result) => {
 		if (err) {
 			res.json({
@@ -146,7 +146,7 @@ GalleryProfile.getAllPublicProfiles = (req, res) => {
 }
 
 
-GalleryProfile.UpdateProfile = async (req, res) => {
+galleryprofiles.UpdateProfile = async (req, res) => {
 	if (req.body.id === '') {
 		res.json({
 			message: "id is required",
@@ -198,7 +198,7 @@ GalleryProfile.UpdateProfile = async (req, res) => {
 }
 
 
-GalleryProfile.delete = async (req, res) => {
+galleryprofiles.delete = async (req, res) => {
 	const data = await sql.query(`select * from "galleryprofile" where id = $1`, [req.params.id]);
 	if (data.rows.length === 1) {
 		sql.query(`DELETE FROM "galleryprofile" WHERE id = $1;`, [req.params.id], (err, result) => {
@@ -224,5 +224,5 @@ GalleryProfile.delete = async (req, res) => {
 		});
 	}
 }
-module.exports = GalleryProfile;
+module.exports = galleryprofiles;
 

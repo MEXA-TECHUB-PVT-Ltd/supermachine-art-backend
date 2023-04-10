@@ -1,4 +1,4 @@
-const GalleryProfile = require("../models/GalleryProfile");
+const GalleryProfile = require("../models/galleryprofiles");
 
 
 exports.create = (req, res) => {

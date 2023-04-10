@@ -1,4 +1,4 @@
-const Images = require("../models/Images");
+const Images = require("../models/allimages");
 
 // Create and Save a new Admin
 exports.AddImages = (req, res) => {
