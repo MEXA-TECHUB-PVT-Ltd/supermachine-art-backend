@@ -1,5 +1,5 @@
 const {sql} = require("../config/db.config");
-const Images = function (Images) {
+const allimages = function (Images) {
     this.userID = Images.userID;
     this.FolderID = Images.FolderID
     this.name = Images.name;
@@ -8,7 +8,7 @@ const Images = function (Images) {
     this.seedID = Images.seedID;
 
 };
-Images.AddImages = async (req, res) => {
+allimages.AddImages = async (req, res) => {
     sql.query(`CREATE TABLE IF NOT EXISTS public.Images (
                 id SERIAL NOT NULL,
                 userID SERIAL NOT NULL ,
@@ -79,7 +79,7 @@ Images.AddImages = async (req, res) => {
     });
 }
 
-Images.ViewUserAllImages = (req, res) => {
+allimages.ViewUserAllImages = (req, res) => {
     sql.query(`SELECT * FROM "images" WHERE ( userid = $1 AND folderstatus = $2)`, [req.body.userID, 'public'], (err, result) => {
         if (err) {
             console.log(err);
@@ -97,7 +97,7 @@ Images.ViewUserAllImages = (req, res) => {
         }
     });
 }
-Images.GetAllImagesInFolder = (req, res) => {
+allimages.GetAllImagesInFolder = (req, res) => {
     console.log(req.body);
     sql.query(`SELECT * FROM "images" WHERE ( folderid = $1 AND userid = $2)`,
      [req.body.folderID, req.body.userID], (err, result) => {
@@ -118,4 +118,4 @@ Images.GetAllImagesInFolder = (req, res) => {
     });
 }
  
-module.exports = Images;
+module.exports = allimages;

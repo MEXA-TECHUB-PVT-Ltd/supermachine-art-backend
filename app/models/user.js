@@ -1,4 +1,40 @@
-const {sql} = require("../config/db.config");
+// module.exports = (sequelize, Sequelize) => {
+// 	const User = sequelize.define("User", {
+// 		name: {
+// 			type: Sequelize.STRING,
+// 		},
+// 		gender: {
+// 			type: Sequelize.STRING,
+// 		},
+// 		phone: {
+// 			type: Sequelize.STRING,
+// 		},
+// 		profileImage: {
+// 			type: Sequelize.STRING,
+// 		},
+// 		email: {
+// 			type: Sequelize.STRING,
+// 			required: true,
+// 		},
+// 		password: {
+// 			type: Sequelize.STRING,
+// 			required: true,
+// 		},
+// 		type: {
+// 			type: Sequelize.STRING,
+// 			required: true,
+// 			// enum: ['visitor', 'member', 'subscriber']
+// 		},
+// 		status: {
+// 			type: Sequelize.STRING,
+// 			// enum: ['unBlock', 'blocked']
+// 		},
+
+// 	});
+// 	return User;
+// };
+
+const { sql } = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -44,44 +80,56 @@ User.create = async (req, res) => {
 					status: false,
 				});
 			} else {
-				const salt = await bcrypt.genSalt(10);
-				let hashpassword = await bcrypt.hash(req.body.password, salt);
-
-				const { name, gender, phone, email } = req.body;
-				const profileImage = '';
-				const type = 'member';
-				const status = 'unBlock';
-				const query = `INSERT INTO "user" (id,name, gender,phone,profileImage,email,password ,type , status, createdAt ,updatedAt )
+				const check = (`SELECT * FROM "user" WHERE email = $1`);
+				const checkResult = await sql.query(check,[req.body.email]);
+				if (checkResult.rows.length > 0) {
+					res.json({
+						message: "User Already Exists",
+						status: false,
+					});
+				} else if (checkResult.rows.length == 0) {
+					const salt = await bcrypt.genSalt(10);
+					let hashpassword = await bcrypt.hash(req.body.password, salt);
+					const { name, gender, phone, email } = req.body;
+					const profileImage = '';
+					const type = 'member';
+					const status = 'unBlock';
+					const query = `INSERT INTO "user" (id,name, gender,phone,profileImage,email,password ,type , status, createdAt ,updatedAt )
                             VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, 'NOW()','NOW()' ) RETURNING * `;
-				const foundResult = await sql.query(query,
-					[name, gender, phone, profileImage, email, hashpassword, type, status]);
-				if (foundResult.rows.length > 0) {
-					if (err) {
+					const foundResult = await sql.query(query,
+						[name, gender, phone, profileImage, email, hashpassword, type, status]);
+					if (foundResult.rows.length > 0) {
+						if (err) {
+							res.json({
+								message: "Try Again",
+								status: false,
+								err
+							});
+						}
+						else {
+							const token = jwt.sign({ id: foundResult.rows[0].id }, 'IhTRsIsUwMyHAmKsA', {
+								expiresIn: "7d",
+							});
+							res.json({
+								message: "User Added Successfully!",
+								status: true,
+								result: foundResult.rows,
+								token: token
+							});
+						}
+					} else {
 						res.json({
 							message: "Try Again",
 							status: false,
 							err
 						});
 					}
-					else {
-						res.json({
-							message: "User Added Successfully!",
-							status: true,
-							result: foundResult.rows,
-						});
-					}
-				} else {
-					res.json({
-						message: "Try Again",
-						status: false,
-						err
-					});
-				}
 
-			};
+				};
+			}
 		}
-
 	});
+
 }
 
 User.login = async function (req, res) {
@@ -426,40 +474,40 @@ User.delete = async (req, res) => {
 	}
 }
 
-User.newPassword = async (req,res)=>{
-    try{
-        const email = req.body.email;
-        const found_email_query = 'SELECT * FROM otp WHERE email = $1 AND status = $2'
-        const result = await sql.query(found_email_query, [email , 'verified'])
-        if(result.rowCount>0){
-            const salt = await bcrypt.genSalt(10);
-            let hashpassword = await bcrypt.hash(req.body.password, salt);    
-            let query = `UPDATE "user" SET password = $1  WHERE email = $2 RETURNING*`
-            let values = [hashpassword,email]
-            let updateResult = await sql.query(query, values);
-            updateResult = updateResult.rows[0];
+User.newPassword = async (req, res) => {
+	try {
+		const email = req.body.email;
+		const found_email_query = 'SELECT * FROM otp WHERE email = $1 AND status = $2'
+		const result = await sql.query(found_email_query, [email, 'verified'])
+		if (result.rowCount > 0) {
+			const salt = await bcrypt.genSalt(10);
+			let hashpassword = await bcrypt.hash(req.body.password, salt);
+			let query = `UPDATE "user" SET password = $1  WHERE email = $2 RETURNING*`
+			let values = [hashpassword, email]
+			let updateResult = await sql.query(query, values);
+			updateResult = updateResult.rows[0];
 			console.log(result.rows);
-			sql.query(`DELETE FROM otp WHERE id = $1;`, [result.rows[0].id], (err, result) => {});
-            res.json({
-                message: "Password changed",
-                status: true,
-                result: updateResult
-            })
-        }
-        else{
-            res.json({
-                message : "Email Not Found ",
-                status:false
-            })
-        }
-    }
-    catch(err){
-        console.log(err)
-        res.status(500).json({
-          message: `Internal server error occurred`,
-          success:false,
-        });
-      }
+			sql.query(`DELETE FROM otp WHERE id = $1;`, [result.rows[0].id], (err, result) => { });
+			res.json({
+				message: "Password changed",
+				status: true,
+				result: updateResult
+			})
+		}
+		else {
+			res.json({
+				message: "Email Not Found ",
+				status: false
+			})
+		}
+	}
+	catch (err) {
+		console.log(err)
+		res.status(500).json({
+			message: `Internal server error occurred`,
+			success: false,
+		});
+	}
 }
 
 
