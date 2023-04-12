@@ -8,8 +8,9 @@ const dbConfig = require('./app/config/db.config')
 require('dotenv').config()
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  // origin: "http://localhost:8081"
 };
+app.use(cors()) // Use this
 app.use(cors(corsOptions));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -19,7 +20,7 @@ app.use(express.json());  /* bodyParser.json() is deprecated */
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));   /* bodyParser.urlencoded() is deprecated */
-app.use("/imges_uploads", express.static("imges_uploads"))
+app.use("/images_uploads", express.static("images_uploads"))
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is deprecated */
@@ -48,8 +49,10 @@ require("./app/routers/FAQs")(app);
 // require("./app/routers/GalleryImages")(app);
 require("./app/routers/GalleryProfile")(app);
 require("./app/routers/Images")(app);
+require("./app/routers/Favorite")(app);
+require("./app/routers/Search")(app);
 
-// dbConfig.connect();
+// dbConfig.connect() ;
 
 // (async () => {
 //   dbConfig.on('connection', (err, connection) => {
