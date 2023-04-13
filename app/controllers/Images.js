@@ -29,3 +29,12 @@ exports.ViewUserAllImages = (req, res) => {
   }  
   Images.ViewUserAllImages( req, res);
 };
+exports.DeleteImages = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  Images.DeleteImages( req, res);
+};

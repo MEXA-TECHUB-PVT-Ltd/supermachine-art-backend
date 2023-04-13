@@ -90,6 +90,8 @@ Folder.GetAFolder = (req, res) => {
 }
 
 Folder.viewUserAllFolders = (req, res) => {
+	console.log('viewUserAllFolders');
+	console.log(req.params.id);
 	sql.query(`SELECT * FROM Folder WHERE userid = $1`,
 	[req.params.id] ,(err, result) => {
 		if (err) {

@@ -174,7 +174,7 @@ FAQs.delete = async (req, res) => {
 				});
 			} else {
 				res.json({
-					message: "Promo answer Deleted Successfully!",
+					message: " Faqs Deleted Successfully!",
 					status: true,
 					result: data.rows,
 

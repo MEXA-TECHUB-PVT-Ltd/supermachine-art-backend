@@ -5,11 +5,13 @@ const path = require('path');
 
 
 const sql = new Pool ({
-  host: "localhost",
-  port:'5432',
-  user: "postgres", 
-  password: "1234",
-  database: "postgres"
+  host:'postgres-node-staging-projects.mtechub.com', 
+  port :5432 ,
+  user :'mtechubsupermachine' ,
+  password :'mtechub123',
+  database :  'supermachineapp',
+  max : 10,
+  // host: "localhost",
   //    max : process.env.MAX
 });
 

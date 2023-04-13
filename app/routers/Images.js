@@ -7,8 +7,9 @@ module.exports = app => {
     // const formidable = require("express-formidable");
 
     router.post("/add_image", Images.AddImages);
-    router.get("/view_all_images_in_folder", Images.GetAllImagesInFolder);
-    router.get("/view_user_all_images", Images.ViewUserAllImages);
+    router.post("/view_all_images_in_folder", Images.GetAllImagesInFolder);
+    router.post("/view_user_all_images", Images.ViewUserAllImages);
+    router.delete("/delete_image/:id", Images.DeleteImages);
 
     app.use("/images", router);
 };

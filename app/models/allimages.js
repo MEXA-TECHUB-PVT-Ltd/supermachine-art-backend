@@ -80,7 +80,7 @@ allimages.AddImages = async (req, res) => {
 }
 
 allimages.ViewUserAllImages = (req, res) => {
-    sql.query(`SELECT * FROM "images" WHERE ( userid = $1 AND folderstatus = $2)`, [req.body.userID, 'public'], (err, result) => {
+    sql.query(`SELECT * FROM "images" WHERE  userid = $1 ORDER BY createdat DESC `, [req.body.userID], (err, result) => {
         if (err) {
             console.log(err);
             res.json({
@@ -98,7 +98,6 @@ allimages.ViewUserAllImages = (req, res) => {
     });
 }
 allimages.GetAllImagesInFolder = (req, res) => {
-    console.log(req.body);
     sql.query(`SELECT * FROM "images" WHERE ( folderid = $1 AND userid = $2)`,
      [req.body.folderID, req.body.userID], (err, result) => {
         if (err) {
@@ -109,6 +108,7 @@ allimages.GetAllImagesInFolder = (req, res) => {
                 err
             });
         } else {
+            console.log(result.rows);
             res.json({
                 message: "Images Details",
                 status: true,
@@ -117,5 +117,32 @@ allimages.GetAllImagesInFolder = (req, res) => {
         }
     });
 }
- 
+
+
+allimages.DeleteImages = async (req, res) => {
+	const data = await sql.query(`select * from "images" where id = $1`, [req.params.id]);
+	if (data.rows.length === 1) {
+		sql.query(`DELETE FROM "images" WHERE id = $1;`, [req.params.id], (err, result) => {
+			if (err) {
+				res.json({
+					message: "Try Again",
+					status: false,
+					err
+				});
+			} else {
+				res.json({
+					message: " image Deleted Successfully!",
+					status: true,
+					result: data.rows,
+
+				});
+			}
+		});
+	} else {
+		res.json({
+			message: "Not Found",
+			status: false,
+		});
+	}
+}
 module.exports = allimages;
