@@ -10,7 +10,7 @@ module.exports = app => {
     router.delete("/delete_user_type/:id", UserType.delete);
     router.put("/update_user_type", UserType.update);
     router.get("/view_user_type", UserType.viewAll);
-    router.get("/view_specific_user_type", UserType.viewSpecific);
+    router.post("/view_specific_user_type", UserType.viewSpecific);
 
     app.use("/user_type", router);
 };

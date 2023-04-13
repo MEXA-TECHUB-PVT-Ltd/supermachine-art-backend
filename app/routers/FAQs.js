@@ -9,7 +9,7 @@ let router = require("express").Router();
 router.post("/add_faqs", FAQS.create);
 router.delete("/delete_faqs/:id", FAQS.delete);
 router.put("/update_faqs", FAQS.update);
-router.get("/view_a_specific_faqs", FAQS.viewSpecific);
+router.post("/view_a_specific_faqs", FAQS.viewSpecific);
 router.get("/view_all_faqs", FAQS.viewAll);
 router.put("/dislike_faqs", FAQS.dislikeFAQs);
 router.put("/like_faqs", FAQS.likeFAQs);
