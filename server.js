@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is d
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to SUPER MACHINE ART." });
 });
 
 require("./app/routers/admin")(app);

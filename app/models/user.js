@@ -395,15 +395,24 @@ User.updateProfile = async (req, res) => {
 		});
 	} else {
 		const userData = await sql.query(`select * from "user" where id = $1`, [req.body.id]);
+		if (userData.rowCount === 0) {
+			res.json({
+                message: "Not User Found",
+                status: false,
+            });
+		}else {
 		const oldName = userData.rows[0].name;
 		const oldGender = userData.rows[0].gender;
 		const oldPhone = userData.rows[0].phone;
 		const oldEmail = userData.rows[0].email;
 
 		let { id, name, gender, phone, email } = req.body;
-		let photo = userData.rows[0].photo;
-		if (req.file) {
+		let photo = userData.rows[0].profileimage;
+		console.log(photo);
+		console.log(req.file);
+		if (req.file !== undefined && req.file !== '') {
 			const { path } = req.file;
+			console.log(path);
 			photo = path;
 		}
 		if (name === undefined || name === '') {
@@ -443,6 +452,7 @@ User.updateProfile = async (req, res) => {
 					}
 				}
 			});
+		}
 	}
 }
 

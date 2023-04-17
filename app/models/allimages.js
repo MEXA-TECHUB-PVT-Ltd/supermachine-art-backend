@@ -3,7 +3,9 @@ const allimages = function (Images) {
     this.userID = Images.userID;
     this.FolderID = Images.FolderID
     this.name = Images.name;
+    this.negativePrompt = Images.negativePrompt;
     this.FolderStatus = Images.FolderStatus;
+    this.likes = Images.likes;
     this.image = Images.image;
     this.seedID = Images.seedID;
 
@@ -14,12 +16,14 @@ allimages.AddImages = async (req, res) => {
                 userID SERIAL NOT NULL ,
                 FolderID SERIAL,
                 name text,
+                negativePrompt text,
                 FolderStatus text,
+                likes text,
                 image text ,
                 seedID text ,
                 createdAt timestamp,
                 updatedAt timestamp ,
-                PRIMARY KEY (id))  ` , async (err, result) => {
+                PRIMARY KEY (id));  ` , async (err, result) => {
         if (err) {
             res.json({
                 message: "Try Again",
@@ -43,13 +47,13 @@ allimages.AddImages = async (req, res) => {
               FROM "folder" where id=${req.body.FolderID}`;
                 const results = await sql.query(queryx);
                 const status = results.rows[0].status;
-                const { userID, FolderID, name, FolderStatus, image,
+                const { userID, FolderID, name, negativePrompt,FolderStatus, image,
                     seedID } = req.body;
                 const query = `INSERT INTO "images"
-                         (id, userID,FolderID, name , FolderStatus,image,seedID  ,createdAt ,updatedAt )
-                                    VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, 'NOW()','NOW()' ) RETURNING * `;
+                         (id, userID,FolderID, name ,negativePrompt ,FolderStatus,image,seedID  ,createdAt ,updatedAt )
+                                    VALUES (DEFAULT, $1, $2, $3, $4, $5, $6,$7, 'NOW()','NOW()' ) RETURNING * `;
                 const foundResult = await sql.query(query,
-                    [userID, FolderID, name, status, image, seedID]);
+                    [userID, FolderID, name, negativePrompt , status, image, seedID]);
                 if (foundResult.rows.length > 0) {
                     if (err) {
                         res.json({
@@ -59,10 +63,16 @@ allimages.AddImages = async (req, res) => {
                         });
                     }
                     else {
-                        res.json({
+                        console.log(foundResult.rows[0].id)
+                        const query2 = `SELECT *  FROM "user" WHERE id = $1`;
+                        const result = await sql.query(query2,
+                            [userID]);
+        
+                                                res.json({
                             message: "Images Added Successfully!",
                             status: true,
                             result: foundResult.rows,
+                            user: result.rows
                         });
                     }
                 } else {
@@ -117,6 +127,28 @@ allimages.GetAllImagesInFolder = (req, res) => {
         }
     });
 }
+
+
+allimages.ViewSpecificImage = (req, res) => {
+    sql.query(`SELECT * FROM "images" WHERE  id = $1 ORDER BY createdat DESC `, [req.params.id], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json({
+                message: "Try Again",
+                freeTrailDays: false,
+                err
+            });
+        } else {
+            res.json({
+                message: "Images Details",
+                freeTrailDays: true,
+                result: result.rows
+            });
+        }
+    });
+}
+
+
 
 
 allimages.DeleteImages = async (req, res) => {

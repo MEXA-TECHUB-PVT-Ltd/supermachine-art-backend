@@ -15,5 +15,10 @@ module.exports = app => {
     router.get("/view_all_gallery_profiles", GalleryProfile.getAllPublicProfiles);
     router.delete("/delete_gallery_profile/:id", GalleryProfile.delete);
 
+    router.post("/like_an_Artist", GalleryProfile.likeAnArtist);
+    router.post("/total_ikes_on_artist", GalleryProfile.getAllLikesOnArtist);
+    
+
+    
     app.use("/gallery_profile", router);
 };

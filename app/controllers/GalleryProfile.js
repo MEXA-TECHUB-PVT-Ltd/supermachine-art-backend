@@ -1,4 +1,5 @@
 const GalleryProfile = require("../models/galleryprofiles");
+const artistLikes = require("../models/artistLikes");
 
 
 exports.create = (req, res) => {
@@ -39,6 +40,27 @@ exports.getAllPublicProfiles = (req, res) => {
   }  
   GalleryProfile.getAllPublicProfiles( req, res);
 };
+
+exports.getAllLikesOnArtist = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  artistLikes.getAllLikesOnArtist( req, res);
+};
+
+exports.likeAnArtist = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  artistLikes.likeAnArtist( req, res);
+};
+
 
 exports.delete = (req, res) => {
   if (!req.body) {

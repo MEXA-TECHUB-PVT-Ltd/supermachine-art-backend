@@ -4,7 +4,7 @@
 // 	image: {
 // 	description: {
 
-const {sql} = require("../config/db.config");
+const { sql } = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -13,6 +13,8 @@ const galleryprofiles = function (GalleryProfile) {
 	this.name = GalleryProfile.name;
 	this.image = GalleryProfile.image
 	this.description = GalleryProfile.description;
+	this.likes = GalleryProfile.likes;
+
 };
 // CONSTRAINT userID FOREIGN KEY (userID)
 //         REFERENCES public."StyleTags" (id) MATCH SIMPLE
@@ -26,6 +28,7 @@ galleryprofiles.create = async (req, res) => {
         name text ,
         image text,
 		description text ,
+		likes integer,
         createdAt timestamp,
         updatedAt timestamp ,
         PRIMARY KEY (id)
@@ -69,8 +72,8 @@ galleryprofiles.create = async (req, res) => {
 								status: false,
 							});
 						} else {
-							const query = `INSERT INTO "galleryprofile" (id,userID, name,image,description, createdAt ,updatedAt )
-                            VALUES (DEFAULT, $1, $2, $3, $4, 'NOW()','NOW()' ) RETURNING * `;
+							const query = `INSERT INTO "galleryprofile" (id,userID, name,image,description,likes, createdAt ,updatedAt )
+                            VALUES (DEFAULT, $1, $2, $3, $4, 0 , 'NOW()','NOW()' ) RETURNING * `;
 							const foundResult = await sql.query(query,
 								[userID, name, photo, description]);
 							if (foundResult.rows.length > 0) {
@@ -154,46 +157,58 @@ galleryprofiles.UpdateProfile = async (req, res) => {
 		});
 	} else {
 		const GalleryProfileData = await sql.query(`select * from "galleryprofile" where id = $1`, [req.body.id]);
-		const oldname = GalleryProfileData.rows[0].name;
-		const oldimage = GalleryProfileData.rows[0].image;
-		const olddescription = GalleryProfileData.rows[0].description;
 
-		let { id, name, image, description } = req.body;
 
-		if (name === undefined || name === '') {
-			name = oldname;
-		}
-		if (image === undefined || image === '') {
-			image = oldimage;
-		}
-		if (description === undefined || description === '') {
-			description = olddescription;
-		}
-		sql.query(`UPDATE "galleryprofile" SET  name = $1, 
+		if (GalleryProfileData.rows.length > 0) {
+			const oldname = GalleryProfileData.rows[0].name;
+			const olddescription = GalleryProfileData.rows[0].description;
+
+			let { id, name, description } = req.body;
+
+			if (name === undefined || name === '') {
+				name = oldname;
+			}
+			let photo = GalleryProfileData.rows[0].image;
+			console.log(req.file);
+			if (req.file !== undefined && req.file !== '') {
+				const { path } = req.file;
+				photo = path;
+			}
+				if (description === undefined || description === '') {
+				description = olddescription;
+			}
+			sql.query(`UPDATE "galleryprofile" SET  name = $1, 
 		image = $2, description = $3  WHERE id = $4;`,
-			[name, image, description, id], async (err, result) => {
-				if (err) {
-					res.json({
-						message: "Try Again",
-						status: false,
-						err
-					});
-				} else {
-					if (result.rowCount === 1) {
-						const data = await sql.query(`select * from "galleryprofile" where id = $1`, [req.body.id]);
+				[name, photo, description, id], async (err, result) => {
+					if (err) {
 						res.json({
-							message: "Gallery Profile Updated Successfully!",
-							status: true,
-							result: data.rows,
-						});
-					} else if (result.rowCount === 0) {
-						res.json({
-							message: "Not Found",
+							message: "Try Again",
 							status: false,
+							err
 						});
+					} else {
+						if (result.rowCount === 1) {
+							const data = await sql.query(`select * from "galleryprofile" where id = $1`, [req.body.id]);
+							res.json({
+								message: "Gallery Profile Updated Successfully!",
+								status: true,
+								result: data.rows,
+							});
+						} else if (result.rowCount === 0) {
+							res.json({
+								message: "Not Found",
+								status: false,
+							});
+						}
 					}
-				}
+				});
+
+		} else {
+			res.json({
+				message: "Not Found",
+				status: false,
 			});
+		}
 	}
 }
 
