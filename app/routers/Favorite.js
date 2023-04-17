@@ -13,5 +13,6 @@ router.post("/view_specific_fav_art_details", Favorite.viewSpecificFavArtDetails
 router.post("/view_specific_fav_artst_details", Favorite.viewSpecificFavArtistDetails);
 
 
+
 app.use("/favorite", router);
 };

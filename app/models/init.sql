@@ -51,10 +51,11 @@ CREATE TABLE IF NOT EXISTS public.Folder (
 
 CREATE TABLE IF NOT EXISTS public.GalleryProfile (
         id SERIAL NOT NULL,
-		userID SERIAL NOT NULL,
+        userID SERIAL NOT NULL,
         name text ,
         image text,
-		description text ,
+        description text ,
+        likes integer,
         createdAt timestamp,
         updatedAt timestamp ,
         PRIMARY KEY (id));
@@ -80,12 +81,15 @@ CREATE TABLE IF NOT EXISTS public.Images (
                 userID SERIAL NOT NULL ,
                 FolderID SERIAL,
                 name text,
+                negativePrompt text,
                 FolderStatus text,
+                likes text,
                 image text ,
                 seedID text ,
                 createdAt timestamp,
                 updatedAt timestamp ,
                 PRIMARY KEY (id));
+
 
 CREATE TABLE IF NOT EXISTS public.ImageSizeRatios (
         id SERIAL,
@@ -233,5 +237,23 @@ CREATE TABLE IF NOT EXISTS public.favoriteArtist (
         userID SERIAL NOT NULL,
         FavUserId SERIAL NOT NULL,
         createdAt timestamp NOT NULL,
+        updatedAt timestamp ,
+        PRIMARY KEY (id));
+
+
+
+CREATE TABLE IF NOT EXISTS public.artistLikess (
+        id SERIAL,
+        profileId SERIAL NOT NULL,
+        userID SERIAL  NOT NULL,
+        createdAt timestamp,
+        updatedAt timestamp ,
+        PRIMARY KEY (id));
+
+        CREATE TABLE IF NOT EXISTS public.artLikess (
+        id SERIAL,
+        artid SERIAL NOT NULL,
+        userID SERIAL  NOT NULL,
+        createdAt timestamp,
         updatedAt timestamp ,
         PRIMARY KEY (id));
