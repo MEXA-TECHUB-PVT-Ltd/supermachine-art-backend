@@ -1,5 +1,5 @@
 const GalleryProfile = require("../models/galleryprofiles");
-const artistLikes = require("../models/artistLikes");
+const artistlikes = require("../models/artistlikes");
 
 
 exports.create = (req, res) => {
@@ -48,7 +48,7 @@ exports.getAllLikesOnArtist = (req, res) => {
       status: false,
      });
   }  
-  artistLikes.getAllLikesOnArtist( req, res);
+  artistlikes.getAllLikesOnArtist( req, res);
 };
 
 exports.likeAnArtist = (req, res) => {
@@ -58,7 +58,7 @@ exports.likeAnArtist = (req, res) => {
       status: false,
      });
   }  
-  artistLikes.likeAnArtist( req, res);
+  artistlikes.likeAnArtist( req, res);
 };
 
 
