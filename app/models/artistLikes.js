@@ -1,9 +1,9 @@
 const { sql } = require("../config/db.config");
-const artistLikes = function (artistLikes) {
+const artistlikes = function (artistLikes) {
     this.profileId = artistLikes.profileId;
     this.userID = artistLikes.userID;
 };
-artistLikes.likeAnArtist = async (req, res) => {
+artistlikes.likeAnArtist = async (req, res) => {
     if (!req.body.profileId || req.body.profileId === '') {
         res.json({
             message: "Please Enter your id",
@@ -90,7 +90,7 @@ artistLikes.likeAnArtist = async (req, res) => {
 
 }
 
-artistLikes.getAllLikesOnArtist = (req, res) => {
+artistlikes.getAllLikesOnArtist = (req, res) => {
     sql.query(`SELECT * FROM "galleryprofile" WHERE ( id = $1)`,
         [req.body.id], (err, results) => {
             if (err) {
@@ -125,4 +125,4 @@ artistLikes.getAllLikesOnArtist = (req, res) => {
         });
 }
 
-module.exports = artistLikes;
+module.exports = artistlikes;

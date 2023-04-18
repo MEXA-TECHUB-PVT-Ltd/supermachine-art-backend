@@ -52,27 +52,6 @@ require("./app/routers/Images")(app);
 require("./app/routers/Favorite")(app);
 require("./app/routers/Search")(app);
 
-// dbConfig.connect() ;
-
-// (async () => {
-//   dbConfig.on('connection', (err, connection) => {
-//     if (err) {
-//       console.log(err)
-//     } else {
-//       console.log('connected to postgres')
-//     }
-//   })
-// })();
-
-// dbConfig.on('error', (err) => {
-//   console.log(err);
-// })
-// dbConfig.on('end', (err) => {
-//   console.log("end connection");
-// })
-
-
-
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8082;

@@ -1,5 +1,5 @@
 const Images = require("../models/allimages");
-const artLikes = require("../models/artLikes");
+const artlikes = require("../models/artlikes");
 
 // Create and Save a new Admin
 exports.AddImages = (req, res) => {
@@ -49,7 +49,7 @@ exports.getAllLikesOnArt = (req, res) => {
       status: false,
      });
   }  
-  artLikes.getAllLikesOnArt( req, res);
+  artlikes.getAllLikesOnArt( req, res);
 };
 
 exports.likeAnArt = (req, res) => {
@@ -59,7 +59,7 @@ exports.likeAnArt = (req, res) => {
       status: false,
      });
   }  
-  artLikes.likeAnArt( req, res);
+  artlikes.likeAnArt( req, res);
 };
 
 
