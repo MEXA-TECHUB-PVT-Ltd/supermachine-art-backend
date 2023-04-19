@@ -132,6 +132,8 @@ User.create = async (req, res) => {
 
 }
 
+
+
 User.login = async function (req, res) {
 	sql.query(`SELECT * FROM "user" WHERE email = $1`, [req.body.email], (err, result) => {
 		if (err) {
@@ -165,6 +167,38 @@ User.login = async function (req, res) {
 						status: false,
 					});
 				}
+			}
+		}
+	});
+}
+
+
+User.GooglesignIn = async function (req, res) {
+	sql.query(`SELECT * FROM "user" WHERE email = $1`, [req.body.email], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.json({
+				message: "Try Again",
+				status: false,
+				err
+			});
+		}
+		else {
+			if (result.rows.length === 0) {
+				res.json({
+					message: "User Not Found",
+					status: false,
+				});
+			} else {
+					const token = jwt.sign({ id: result.rows[0].id }, 'IhTRsIsUwMyHAmKsA', {
+						expiresIn: "7d",
+					});
+					res.json({
+						message: "Login Successful",
+						status: true,
+						result: result.rows,
+						token
+					});
 			}
 		}
 	});
