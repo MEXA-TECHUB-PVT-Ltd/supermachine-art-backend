@@ -7,6 +7,7 @@ module.exports = app => {
 
 
     router.post("/sign_in_All", User.login);
+    router.post("/google_sign_in", User.GooglesignIn);
     router.post("/member_sign_up", User.SignUp);
     router.put("/resetPassword", User.resetPassword);
     router.put("/updateMember_Profile", upload.single("photo"), User.updateProfile);

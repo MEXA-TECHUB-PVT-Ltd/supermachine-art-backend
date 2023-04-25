@@ -19,6 +19,15 @@ exports.login = (req, res) => {
   }  
   User.login( req, res);
 };
+exports.GooglesignIn = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  User.GooglesignIn( req, res);
+};
 
 exports.resetPassword = (req, res) => {
   if (!req.body) {
