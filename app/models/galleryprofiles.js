@@ -32,7 +32,6 @@ galleryprofiles.create = async (req, res) => {
         createdAt timestamp,
         updatedAt timestamp ,
         PRIMARY KEY (id)
-
 		)  ` , async (err, result) => {
 		if (err) {
 			res.json({
@@ -58,7 +57,7 @@ galleryprofiles.create = async (req, res) => {
 					photo = path;
 				}
 				const { userID, name, description } = req.body;
-				sql.query(`SELECT * FROM "galleryprofile" WHERE ( id = $1)`, [req.body.userID], async (err, result) => {
+				sql.query(`SELECT * FROM "galleryprofile" WHERE ( userid = $1)`, [req.body.userID], async (err, result) => {
 					if (err) {
 						res.json({
 							message: "Try Again",
@@ -211,6 +210,25 @@ galleryprofiles.UpdateProfile = async (req, res) => {
 		}
 	}
 }
+galleryprofiles.countAllImages = (req, res) => {
+    sql.query(`SELECT COUNT(*) FROM "images" WHERE  (userid = $1 AND folderstatus = 'public')  `, [req.body.userID], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.json({
+                message: "Try Again",
+                freeTrailDays: false,
+                err
+            });
+        } else {
+            res.json({
+                message: "Images Details",
+                freeTrailDays: true,
+                result: result.rows
+            });
+        }
+    });
+}
+
 
 
 galleryprofiles.delete = async (req, res) => {

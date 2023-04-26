@@ -89,8 +89,11 @@ allimages.AddImages = async (req, res) => {
     });
 }
 
+
+
+
 allimages.ViewUserAllImages = (req, res) => {
-    sql.query(`SELECT * FROM "images" WHERE  userid = $1 ORDER BY createdat DESC `, [req.body.userID], (err, result) => {
+    sql.query(`SELECT * FROM "images" WHERE  userid = $1 AND folderstatus = 'public' ORDER BY createdat DESC `, [req.body.userID], (err, result) => {
         if (err) {
             console.log(err);
             res.json({
@@ -108,8 +111,8 @@ allimages.ViewUserAllImages = (req, res) => {
     });
 }
 allimages.GetAllImagesInFolder = (req, res) => {
-    sql.query(`SELECT * FROM "images" WHERE ( folderid = $1 AND userid = $2)`,
-     [req.body.folderID, req.body.userID], (err, result) => {
+    sql.query(`SELECT * FROM "images" WHERE ( folderid = $1)`,
+     [req.body.folderID], (err, result) => {
         if (err) {
             console.log(err);
             res.json({

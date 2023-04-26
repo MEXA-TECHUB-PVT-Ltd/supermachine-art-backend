@@ -29,6 +29,17 @@ exports.GetAFolder = (req, res) => {
   Folder.GetAFolder( req, res);
 };
 
+exports.countAllImagesFolder = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  Folder.countAllImagesFolder( req, res);
+};
+
+
 exports.delete = (req, res) => {
   if (!req.body) {
     res.json({

@@ -11,8 +11,9 @@ module.exports = app => {
     router.post("/view_all_folder_user/:id", Folder.viewUserAllFolders);
     router.post("/view_a_specific_folder_user", Folder.GetAFolder);
     router.put("/update_folder_status", Folder.UpdateFolderStatus);
-    router.post("/view_all_public_folders/:id", Folder.getAllPublicFolder);
-    router.post("/view_all_private_folders/:id", Folder.getAllPrivateFolder);
+    router.post("/view_all_public_folders", Folder.getAllPublicFolder);
+    router.post("/view_all_private_folders", Folder.getAllPrivateFolder);
+    router.post("/count_folder_images", Folder.countAllImagesFolder);
 
 
     // router.post("/add_image", Images.AddImages);

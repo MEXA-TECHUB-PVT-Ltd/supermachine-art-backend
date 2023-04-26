@@ -60,6 +60,15 @@ exports.likeAnArtist = (req, res) => {
   }  
   likes.likeAnArtist( req, res);
 };
+exports.countAllImages = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  GalleryProfile.countAllImages( req, res);
+};
 
 
 exports.delete = (req, res) => {
