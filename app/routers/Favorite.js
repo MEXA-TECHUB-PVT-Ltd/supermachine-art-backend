@@ -11,6 +11,8 @@ router.post("/view_All_fav_artists", Favorite.viewAllFavArtists);
 
 router.post("/view_specific_fav_art_details", Favorite.viewSpecificFavArtDetails);
 router.post("/view_specific_fav_artst_details", Favorite.viewSpecificFavArtistDetails);
+router.delete("/delete_art_from_fav", Favorite.removeArtFromFav);
+router.delete("/delete_artist_from_fav", Favorite.removeArtistFromFav);
 
 
 

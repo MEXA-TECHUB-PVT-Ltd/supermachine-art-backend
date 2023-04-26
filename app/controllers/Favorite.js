@@ -56,3 +56,26 @@ exports.viewSpecificFavArtistDetails = (req, res) => {
   }  
   favoriteArtist.viewSpecificFavArtistDetails( req, res);
 };
+
+
+
+exports.removeArtistFromFav = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  favoriteArtist.removeArtistFromFav( req, res);
+};
+
+
+exports.removeArtFromFav = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  Favorite.removeArtFromFav( req, res);
+};

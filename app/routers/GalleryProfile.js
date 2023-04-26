@@ -17,7 +17,8 @@ module.exports = app => {
 
     router.post("/like_an_Artist", GalleryProfile.likeAnArtist);
     router.post("/total_ikes_on_artist", GalleryProfile.getAllLikesOnArtist);
-    
+    router.get("/count_all_images", GalleryProfile.countAllImages);
+
 
     
     app.use("/gallery_profile", router);

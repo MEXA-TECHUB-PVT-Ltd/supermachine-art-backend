@@ -99,4 +99,42 @@ favoriteArtist.viewSpecificFavArtistDetails = (req, res) => {
             }
         });
 }
+
+favoriteArtist.removeArtistFromFav = async (req, res) => {
+
+    if (!req.body.FavUserId || req.body.FavUserId === '') {
+        res.json({
+            message: "Please speciify Favorite art",
+            status: false,
+        });
+    } else {
+        const data = await sql.query(`select * from favoriteArtist where userid = $1 AND favuserid = $2`, [req.body.userID, req.body.FavUserId]);
+        if (data.rows.length >= 1) {
+            sql.query(`DELETE FROM favoriteArtist where userid = $1 AND favuserid = $2`, [req.body.userID, req.body.FavUserId], (err, result) => {
+                if (err) {
+                    res.json({
+                        message: "Try Again",
+                        status: false,
+                        err
+                    });
+                } else {
+                    res.json({
+                        message: "Removed Successfully!",
+                        status: true,
+                        result: data.rows,
+
+                    });
+                }
+            });
+        } else {
+            res.json({
+                message: "Not Found",
+                status: false,
+            });
+        }
+    }
+
+}
+
+
 module.exports = favoriteArtist;

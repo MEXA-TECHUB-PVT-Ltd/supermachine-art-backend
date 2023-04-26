@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS public.FAQsLikess (
 
 CREATE TABLE IF NOT EXISTS public.Folder (
         id SERIAL,
-		userID SERIAL NOT NULL,
+        userID SERIAL NOT NULL,
         name text NOT NULL,
         status text,
         createdAt timestamp NOT NULL,
