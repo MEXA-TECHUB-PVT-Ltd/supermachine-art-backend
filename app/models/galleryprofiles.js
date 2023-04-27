@@ -129,8 +129,14 @@ galleryprofiles.ViewMyProfile = (req, res) => {
 }
 
 galleryprofiles.getAllPublicProfiles = (req, res) => {
-	sql.query(`SELECT * FROM "galleryprofile";`, (err, result) => {
+	sql.query(`SELECT "galleryprofile".* FROM "galleryprofile"
+	 INNER JOIN "folder" ON "galleryprofile".userid = "folder".userid
+	 WHERE "folder".userid = "galleryprofile".userid 
+	 AND "folder".status = 'public'
+	 GROUP BY "galleryprofile".id
+	 `, (err, result) => {
 		if (err) {
+			console.log(err);
 			res.json({
 				message: "Try Again",
 				status: false,
@@ -173,7 +179,7 @@ galleryprofiles.UpdateProfile = async (req, res) => {
 				const { path } = req.file;
 				photo = path;
 			}
-				if (description === undefined || description === '') {
+			if (description === undefined || description === '') {
 				description = olddescription;
 			}
 			sql.query(`UPDATE "galleryprofile" SET  name = $1, 
@@ -211,22 +217,22 @@ galleryprofiles.UpdateProfile = async (req, res) => {
 	}
 }
 galleryprofiles.countAllImages = (req, res) => {
-    sql.query(`SELECT COUNT(*) FROM "images" WHERE  (userid = $1 AND folderstatus = 'public')  `, [req.body.userID], (err, result) => {
-        if (err) {
-            console.log(err);
-            res.json({
-                message: "Try Again",
-                freeTrailDays: false,
-                err
-            });
-        } else {
-            res.json({
-                message: "Images Details",
-                freeTrailDays: true,
-                result: result.rows
-            });
-        }
-    });
+	sql.query(`SELECT COUNT(*) FROM "images" WHERE  (userid = $1 AND folderstatus = 'public')  `, [req.body.userID], (err, result) => {
+		if (err) {
+			console.log(err);
+			res.json({
+				message: "Try Again",
+				freeTrailDays: false,
+				err
+			});
+		} else {
+			res.json({
+				message: "Images Details",
+				freeTrailDays: true,
+				result: result.rows
+			});
+		}
+	});
 }
 
 
