@@ -15,7 +15,7 @@ const sql = new Pool({
   user: 'mtechubsupermachine',
   password: 'mtechub123',
   database: 'supermachineapp',
-  max: 10,
+  max: 10
   // host: "localhost",
   //    max : process.env.MAX
 });
