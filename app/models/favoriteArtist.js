@@ -48,13 +48,14 @@ favoriteArtist.addArtistInFav = async (req, res) => {
 		});
 	}
 }
+//  "user".phone,
+// "user".profileimage, "user".email , "user".type, "user".createdat,
+//  "user".updatedat
 favoriteArtist.viewAllFavArtists = (req, res) => {
-    sql.query(`SELECT "favoriteartist".id AS "FavID",  "user".id AS "UserID",
-	"user".name, "user"."gender", "user".phone,
-      "user".profileimage, "user".email , "user".type, "user".createdat,
-       "user".updatedat
-      FROM "favoriteartist" 
-      JOIN "user" ON "favoriteartist"."favuserid" = "user"."id" AND "favoriteartist"."userid" = $1`
+    sql.query(`SELECT "galleryprofile".*
+      FROM "galleryprofile" 
+      JOIN "favoriteartist" ON "favoriteartist"."favuserid" = "galleryprofile"."id" 
+      AND "favoriteartist"."userid" = $1`
     , [req.body.userID],
         (err, result) => {
             if (err) {
@@ -74,13 +75,10 @@ favoriteArtist.viewAllFavArtists = (req, res) => {
         });
 }
 favoriteArtist.viewSpecificFavArtistDetails = (req, res) => {
-    sql.query(`SELECT "favoriteartist".id AS "FavID",  "user".id AS "UserID",
-	"user".name, "user"."gender", "user".phone,
-      "user".profileimage, "user".email , "user".type, "user".createdat,
-       "user".updatedat
-      FROM "favoriteartist" 
-      JOIN "user" ON "favoriteartist"."favuserid" = $1 AND 
-	   "favoriteartist"."favuserid" = "user"."id" AND "favoriteartist"."userid" = $2`
+    sql.query(`SELECT  "galleryprofile".*
+      FROM "galleryprofile" 
+      JOIN "favoriteartist" ON "favoriteartist"."favuserid" = $1 AND 
+	   "favoriteartist"."favuserid" = "galleryprofile"."id" AND "favoriteartist"."userid" = $2`
     , [req.body.FavUserId ,req.body.userID],
         (err, result) => {
             if (err) {

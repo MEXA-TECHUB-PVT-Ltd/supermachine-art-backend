@@ -276,7 +276,7 @@ Folder.countAllImagesFolder = (req, res) => {
 
 
 Folder.delete = async (req, res) => {
-	const data = await sql.query(`select * from Folder where userid = ${req.params.id}`);
+	const data = await sql.query(`select * from Folder where id = ${req.params.id}`);
 		if (data.rows.length === 1) {
 			sql.query(`DELETE FROM Folder WHERE id = $1;`, [req.params.id], (err, result) => {
 				if (err) {
