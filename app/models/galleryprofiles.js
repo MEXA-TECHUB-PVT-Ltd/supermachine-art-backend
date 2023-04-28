@@ -110,7 +110,7 @@ galleryprofiles.create = async (req, res) => {
 
 
 galleryprofiles.ViewMyProfile = (req, res) => {
-	sql.query(`SELECT * FROM "galleryprofile" WHERE ( id = $1)`, [req.params.id], (err, result) => {
+	sql.query(`SELECT * FROM "galleryprofile" WHERE ( userid = $1)`, [req.params.id], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.json({
