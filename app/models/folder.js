@@ -98,7 +98,7 @@ Folder.viewUserAllFolders = (req, res) => {
 	// sql.query(`SELECT folderid, COUNT(*) AS image_count FROM "images"
 	//  WHERE  (userid = $1) GROUP BY "images".folderid `, [req.params.id], (err, count) => {
 
-	sql.query(`SELECT COUNT(*) AS image_count, "folder".* FROM "folder" 
+	sql.query(`SELECT COUNT("images".*) AS image_count, "folder".* FROM "folder" 
 	LEFT JOIN "images" ON "folder".id = "images".folderid   
 	WHERE "folder".userid = $1 
 	GROUP BY "images".folderid , "folder".id
@@ -141,28 +141,29 @@ Folder.getAllPrivateFolder = (req, res) => {
 	});
 }
 Folder.getAllPublicFolder = (req, res) => {
-	sql.query(`SELECT COUNT(*) AS image_count, "folder".* FROM "folder" 
+	sql.query(`SELECT COUNT("images".*) AS image_count, "folder".* FROM "folder" 
 	LEFT JOIN "images" ON "folder".id = "images".folderid   
 	WHERE "folder".userid = $1 AND status = 'public'
 	GROUP BY "images".folderid , "folder".id
 	ORDER BY "folder".createdat DESC`
-	// ,
-	// sql.query(`SELECT * FROM Folder WHERE userid = $1 AND status = 'public'`
-	, [req.body.userID], (err, result) => {
-		if (err) {
-			res.json({
-				message: "Try Again",
-				status: false,
-				err
-			});
-		} else {
-			res.json({
-				message: "Folder Details",
-				status: true,
-				result: result.rows
-			});
-		}
-	});
+		// ,
+		// sql.query(`SELECT * FROM Folder WHERE userid = $1 AND status = 'public'`
+		, [req.body.userID], (err, result) => {
+			if (err) {
+				console.log(err);
+				res.json({
+					message: "Try Again",
+					status: false,
+					err
+				});
+			} else {
+				res.json({
+					message: "Folder Details",
+					status: true,
+					result: result.rows
+				});
+			}
+		});
 }
 
 
@@ -259,15 +260,15 @@ Folder.countAllImagesFolder = (req, res) => {
 	sql.query(`SELECT folderid, COUNT(*) AS image_count FROM "images" WHERE  (userid = $1) GROUP BY "images".folderid `, [req.body.userID], (err, result) => {
 		if (err) {
 			console.log(err);
-		res.json({
-			message: "Try Again",
-		freeTrailDays: false,
-		err
+			res.json({
+				message: "Try Again",
+				status: false,
+				err
 			});
 		} else {
 			res.json({
 				message: "Images Details",
-				freeTrailDays: true,
+				status: true,
 				result: result.rows
 			});
 		}
@@ -277,28 +278,28 @@ Folder.countAllImagesFolder = (req, res) => {
 
 Folder.delete = async (req, res) => {
 	const data = await sql.query(`select * from Folder where id = ${req.params.id}`);
-		if (data.rows.length === 1) {
-			sql.query(`DELETE FROM Folder WHERE id = $1;`, [req.params.id], (err, result) => {
-				if (err) {
-					res.json({
-						message: "Try Again",
-						status: false,
-						err
-					});
-				} else {
-					res.json({
-						message: "Folder Deleted Successfully!",
-						status: true,
-						result: data.rows,
+	if (data.rows.length === 1) {
+		sql.query(`DELETE FROM Folder WHERE id = $1;`, [req.params.id], (err, result) => {
+			if (err) {
+				res.json({
+					message: "Try Again",
+					status: false,
+					err
+				});
+			} else {
+				res.json({
+					message: "Folder Deleted Successfully!",
+					status: true,
+					result: data.rows,
 
-					});
-				}
-			});
+				});
+			}
+		});
 	} else {
-			res.json({
-				message: "Not Found",
-				status: false,
-			});
+		res.json({
+			message: "Not Found",
+			status: false,
+		});
 	}
 }
-		module.exports = Folder;
+module.exports = Folder;
