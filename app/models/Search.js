@@ -46,7 +46,7 @@ Search.SarchArtBySeedId = (req, res) => {
 }
 
 Search.SarchArtistByName = (req, res) => {
-    sql.query(`SELECT * FROM  "user" WHERE "user"."name" = $1`
+    sql.query(`SELECT "user".* ,  "galleryprofile".id AS profileID FROM  "user" JOIN "galleryprofile" ON  "user".id = "galleryprofile".userid WHERE "user"."name" = $1`
         , [req.body.name],
         (err, result) => {
             if (err) {
@@ -66,7 +66,7 @@ Search.SarchArtistByName = (req, res) => {
         });
 }
 Search.SarchArtistByEmail = (req, res) => {
-    sql.query(`SELECT * FROM  "user" WHERE "user"."email" = $1`
+    sql.query(`SELECT "user".* ,  "galleryprofile".id AS profileID FROM  "user" JOIN "galleryprofile" ON  "user".id = "galleryprofile".userid WHERE "user"."email" = $1`
         , [req.body.email],
         (err, result) => {
             if (err) {
