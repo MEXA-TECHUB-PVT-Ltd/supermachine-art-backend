@@ -1,8 +1,3 @@
-// const GalleryProfile = sequelize.define("galleryprofile", {
-// 	userID: {
-// 	name: {
-// 	image: {
-// 	description: {
 
 const { sql } = require("../config/db.config");
 const bcrypt = require("bcryptjs");
