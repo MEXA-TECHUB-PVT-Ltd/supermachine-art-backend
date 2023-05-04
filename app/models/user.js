@@ -1,38 +1,3 @@
-// module.exports = (sequelize, Sequelize) => {
-// 	const User = sequelize.define("User", {
-// 		name: {
-// 			type: Sequelize.STRING,
-// 		},
-// 		gender: {
-// 			type: Sequelize.STRING,
-// 		},
-// 		phone: {
-// 			type: Sequelize.STRING,
-// 		},
-// 		profileImage: {
-// 			type: Sequelize.STRING,
-// 		},
-// 		email: {
-// 			type: Sequelize.STRING,
-// 			required: true,
-// 		},
-// 		password: {
-// 			type: Sequelize.STRING,
-// 			required: true,
-// 		},
-// 		type: {
-// 			type: Sequelize.STRING,
-// 			required: true,
-// 			// enum: ['visitor', 'member', 'subscriber']
-// 		},
-// 		status: {
-// 			type: Sequelize.STRING,
-// 			// enum: ['unBlock', 'blocked']
-// 		},
-
-// 	});
-// 	return User;
-// };
 
 const { sql } = require("../config/db.config");
 const bcrypt = require("bcryptjs");
@@ -333,7 +298,7 @@ User.ViewAllSubscribedUser = (req, res) => {
 }
 
 User.SpecificUser = (req, res) => {
-	sql.query(`SELECT * FROM "user" WHERE id = $1`, [req.body.id], (err, result) => {
+	sql.query(`SELECT "user".* , "galleryprofile".id AS ProfileID  FROM "user" JOIN "galleryprofile" ON "galleryprofile".userid =  "user".id  WHERE "user".id = $1`, [req.body.id], (err, result) => {
 		if (err) {
 			res.json({
 				message: "Try Again",
