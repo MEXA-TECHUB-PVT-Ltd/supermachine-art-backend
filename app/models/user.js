@@ -1,4 +1,3 @@
-
 const { sql } = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -100,7 +99,7 @@ User.create = async (req, res) => {
 
 
 User.login = async function (req, res) {
-	sql.query(`SELECT * FROM "user" WHERE email = $1`, [req.body.email], (err, result) => {
+	sql.query(`SELECT * FROM "user"  WHERE email = $1`, [req.body.email], (err, result) => {
 		if (err) {
 			console.log(err);
 			res.json({
@@ -297,22 +296,52 @@ User.ViewAllSubscribedUser = (req, res) => {
 	});
 }
 
-User.SpecificUser = (req, res) => {
-	sql.query(`SELECT "user".* , "galleryprofile".id AS ProfileID  FROM "user" JOIN "galleryprofile" ON "galleryprofile".userid =  "user".id  WHERE "user".id = $1`, [req.body.id], (err, result) => {
-		if (err) {
-			res.json({
-				message: "Try Again",
-				status: false,
-				err
-			});
-		} else {
-			res.json({
-				message: "Subscribed User Details",
-				status: true,
-				result: result.rows
-			});
+User.SpecificUser = async (req, res) => {
+	const userdata = await sql.query(`select * from "user" where id = $1`, [req.body.id]);
+	if (userdata.rows.length === 1) {
+		const profiledata = await sql.query(`select * from "galleryprofile" where userid = $1`, [userdata.rows[0].id]);
+		if (profiledata.rows.length === 0) {
+			sql.query(`SELECT *  FROM "user" WHERE id = $1`, [req.body.id], (err, result) => {
+				if (err) {
+					console.log(err);
+					res.json({
+						message: "Try Again",
+						status: false,
+						err
+					});
+				} else {
+					res.json({
+						message: "User Details with No Profile",
+						status: true,
+						result: result.rows
+					});
+				}
+			});		
+
+		}else{
+			sql.query(`SELECT "user".* , "galleryprofile".id AS ProfileID  FROM "user" JOIN "galleryprofile" ON "galleryprofile".userid =  "user".id  WHERE "user".id = $1`, [req.body.id], (err, result) => {
+				if (err) {
+					console.log(err);
+					res.json({
+						message: "Try Again",
+						status: false,
+						err
+					});
+				} else {
+					res.json({
+						message: "User Details with Profile",
+						status: true,
+						result: result.rows
+					});
+				}
+			});		
 		}
-	});
+	}else{
+		res.json({
+			message: "No Usere Found",
+			status: false,
+		});
+	}
 }
 User.AllMemberUsers = (req, res) => {
 	sql.query(`SELECT * FROM "user" WHERE type = $1`, ['member'], (err, result) => {
