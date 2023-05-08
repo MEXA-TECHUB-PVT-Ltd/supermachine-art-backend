@@ -19,6 +19,8 @@
     "postgresql"
   ],
   "dependencies": {
+    "@improbable-eng/grpc-web": "^0.15.0",
+    "@types/google-protobuf": "^3.15.6",
     "axios": "^1.3.3",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
@@ -28,6 +30,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-formidable": "^1.2.0",
+    "google-protobuf": "^3.21.2",
     "joi": "^17.7.1",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.1",

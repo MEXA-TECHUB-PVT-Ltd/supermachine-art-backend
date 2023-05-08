@@ -1,3 +1,11 @@
+    // const subscriptionPlanImageSize = sequelize.define("subscriptionPlanImageSize", {
+    //     SubscriptionPlanID: {
+    //         type: Sequelize.INTEGER,
+    //     ImageSize: {
+    //         type: Sequelize.STRING,
+    //     SizeID: {
+    //         type: Sequelize.INTEGER,
+
 
     const {sql} = require("../config/db.config");
     

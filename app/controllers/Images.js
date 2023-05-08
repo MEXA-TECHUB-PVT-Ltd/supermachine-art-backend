@@ -11,6 +11,19 @@ exports.AddImages = (req, res) => {
   }  
   Images.AddImages( req, res);
 };
+
+// Create and Save a new Admin
+exports.CreateImage = (req, res) => {
+  if (!req.body) {
+    res.json({
+      message: "Content can not be empty!",
+      status: false,
+     });
+  }  
+  Images.CreateImage( req, res);
+};
+
+
 exports.GetAllImagesInFolder = (req, res) => {
   if (!req.body) {
     res.json({

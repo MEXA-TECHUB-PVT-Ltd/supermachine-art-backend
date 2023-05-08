@@ -1,3 +1,14 @@
+// module.exports = (sequelize, Sequelize) => {
+//     const userOTPVerificationSchema = sequelize.define("userOTPVerificationSchema", {
+// 		userId: {
+// 			type: Sequelize.STRING,
+// 		otp: {
+// 			type: Sequelize.STRING,
+//         email: {
+// 			type: Sequelize.STRING,
+// 		status: {
+// 			type: Sequelize.STRING,
+
 const {sql} = require("../config/db.config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
