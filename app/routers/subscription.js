@@ -2,9 +2,7 @@ module.exports = app => {
 
 const subscriptionPlan = require("../controllers/subscriptionPlan");
 
-// const upload = require("../middlewares/userPicsMulter")
 let router = require("express").Router();
-// const formidable = require("express-formidable");
 
 router.post("/add_subscription_plan", subscriptionPlan.create);
 router.post("/view_a_specific_subscription_plan", subscriptionPlan.viewSpecificPlan);

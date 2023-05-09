@@ -1,3 +1,8 @@
+// const GalleryProfile = sequelize.define("galleryprofile", {
+// 	userID: {
+// 	name: {
+// 	image: {
+// 	description: {
 
 const { sql } = require("../config/db.config");
 const bcrypt = require("bcryptjs");
@@ -128,7 +133,7 @@ galleryprofiles.getAllPublicProfiles = (req, res) => {
 	 INNER JOIN "folder" ON "galleryprofile".userid = "folder".userid
 	 WHERE "folder".userid = "galleryprofile".userid 
 	 AND "folder".status = 'public'
-	 GROUP BY "galleryprofile".id
+	 GROUP BY "galleryprofile".id ORDER BY "galleryprofile".id DESC
 	 `, (err, result) => {
 		if (err) {
 			console.log(err);

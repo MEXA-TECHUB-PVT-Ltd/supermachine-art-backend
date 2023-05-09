@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS public.Images (
                 name text,
                 negativePrompt text,
                 FolderStatus text,
-                likes text,
+                likes integer,
                 image text ,
                 seedID text ,
                 createdAt timestamp,
